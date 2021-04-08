@@ -1,1 +1,30 @@
-<mat-card>{{ task.name }}</mat-card>
+<mat-card class="card">
+  <mat-card-header>
+    <div *ngIf="task.status; then thenBlock; else elseBlock"></div>
+  </mat-card-header>
+  <mat-card-title class="title">{{ task.name }}</mat-card-title>
+  <mat-card-content class="card-body">
+    <div>{{ task.assigned.slice(0, task.assigned.indexOf(" ")) }}</div>
+    <div>{{ task.end_date }}</div>
+    <div class="priority">{{ task.priority }}</div>
+  </mat-card-content>
+</mat-card>
+
+<ng-template #thenBlock>
+  <div>
+    <img
+      class="img-status"
+      src="../../../assets/img/check-finished.png"
+      alt=""
+    />
+  </div>
+</ng-template>
+<ng-template #elseBlock>
+  <div>
+    <img
+      class="img-status"
+      src="../../../assets/img/checked unfinished.png"
+      alt=""
+    />
+  </div>
+</ng-template>

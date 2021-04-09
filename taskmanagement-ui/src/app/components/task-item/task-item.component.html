@@ -1,14 +1,6 @@
 <mat-card class="card">
   <mat-card-header>
-    <div *ngIf="task.status">
-      <div class="check-item"  >
-        <div class="x">
-            <i class="material-icons">check</i>
-        </div>
-         </div>
-
-
-    </div>
+    <div *ngIf="task.status; then thenStatus; else elseStatus"></div>
   </mat-card-header>
   <mat-card-title class="title">{{ task.name }}</mat-card-title>
   <mat-card-content class="card-body">
@@ -27,5 +19,20 @@
   </mat-card-content>
 </mat-card>
 
-
-
+-<ng-template #thenStatus>
+  <div class="check-item completed">
+    <div class="x">
+      <span class="material-icons">check</span>
+    </div>
+  </div>
+</ng-template>
+<ng-template #elseStatus>
+  <div class="tooltip">
+    <div class="check-item">
+      <div class="x">
+        <span class="material-icons">check</span>
+      </div>
+    </div>
+    <span class="tooltiptext">Click to finish</span>
+  </div>
+</ng-template>

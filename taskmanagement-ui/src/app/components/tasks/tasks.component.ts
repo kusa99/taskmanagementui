@@ -59,7 +59,7 @@ export class TasksComponent implements OnInit {
         description: 'test test',
         assigned: 'Ajdin Civic',
         priority: 'LOW',
-        status: true,
+        status: false,
         start_date: '15/04/2021',
         end_date: '25/04/2021',
       },

@@ -4,9 +4,17 @@
   </mat-card-header>
   <mat-card-title class="title">{{ task.name }}</mat-card-title>
   <mat-card-content class="card-body">
-    <div>{{ task.assigned.slice(0, task.assigned.indexOf(" ")) }}</div>
-    <div>{{ task.end_date }}</div>
-    <div class="priority">{{ task.priority }}</div>
+    <div>
+      <p class="assigned">
+        {{ task.assigned.slice(0, task.assigned.indexOf(" ")) }}
+      </p>
+    </div>
+    <div>
+      <p class="end-date">{{ task.end_date }}</p>
+    </div>
+    <div class="priority">
+      <p>{{ task.priority }}</p>
+    </div>
   </mat-card-content>
 </mat-card>
 
@@ -20,11 +28,12 @@
   </div>
 </ng-template>
 <ng-template #elseBlock>
-  <div>
+  <div class="tooltip">
     <img
       class="img-status"
       src="../../../assets/img/checked unfinished.png"
       alt=""
     />
+    <span class="tooltiptext">Click to finish</span>
   </div>
 </ng-template>

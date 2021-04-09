@@ -29,7 +29,7 @@ export class TasksComponent implements OnInit {
         description: 'test test',
         assigned: 'Jasmin Alimanovic',
         priority: 'HIGH',
-        status: false,
+        status: true,
         start_date: '09/04/2021',
         end_date: '21/04/2021',
       },

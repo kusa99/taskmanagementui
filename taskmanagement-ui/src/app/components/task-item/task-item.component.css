@@ -114,3 +114,79 @@ img:hover {
   cursor: pointer;
   transform: scale(1.1);
 }
+
+   
+
+
+
+.check-item {
+  display: flex;
+  align-items: center;
+
+  position: relative;
+  
+  cursor: pointer;
+  
+  font-size: 18px;
+
+  padding: 35px 15px;
+
+  border-bottom: 1px solid #f2f3f5;
+
+
+}
+.check-item.completed {
+  color: #aaa;
+}
+
+
+
+
+
+
+.check-item .x {
+  display: flex;
+
+  flex-shrink: 0;
+  
+  border: 2px solid rgb(100, 96, 96);
+  border-radius: 50%;
+
+  margin-right: 20px;
+
+  height: 28px;
+  width: 28px;
+
+  transition: background-color 0.2s, border-color 0.2s;
+
+  
+}
+.check-item .x .material-icons {
+  font-size: 20px;
+  margin: auto;
+
+  color: rgb(34, 34, 34);
+  
+  
+  opacity: 0;
+
+  transition: opacity 0.2s;
+}
+
+.check-item:hover .x {
+  background: #eee;
+ 
+}
+.check-item:hover .x .material-icons {
+  opacity: 0.28;
+}
+
+.check-item.completed .x {
+  background: rgb(11, 223, 170);
+  border-color: rgb(11, 223, 170);
+
+  
+}
+.check-item.completed .x .material-icons {
+  opacity: 1;
+}

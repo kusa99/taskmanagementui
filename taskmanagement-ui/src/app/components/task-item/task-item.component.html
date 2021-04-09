@@ -1,8 +1,10 @@
 <mat-card class="card">
-  <mat-card-header>
-    <div *ngIf="task.status; then thenStatus; else elseStatus"></div>
-  </mat-card-header>
-  <mat-card-title class="title">{{ task.name }}</mat-card-title>
+  <div class="card-header">
+    <mat-card-header>
+      <div *ngIf="task.status; then thenStatus; else elseStatus"></div>
+    </mat-card-header>
+    <mat-card-title class="title">{{ task.name }}</mat-card-title>
+  </div>
   <mat-card-content class="card-body">
     <div class="assigned-user">
       <img src="../../../assets/img/user-img.png" alt="user icon" />
@@ -17,14 +19,14 @@
       <p>{{ task.priority }}</p>
     </div>
     <div class="controls-box">
-    <div class="edit">
-      <i class="material-icons">edit</i>
-    </div>
+      <div class="edit">
+        <i class="material-icons">edit</i>
+      </div>
 
-    <div class="delete">
-      <i class="material-icons">delete</i>
+      <div class="delete">
+        <i class="material-icons">delete</i>
+      </div>
     </div>
-  </div>
   </mat-card-content>
 </mat-card>
 

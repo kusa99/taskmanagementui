@@ -3,13 +3,11 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 2rem;
-  border: 1.5px solid rgb(15, 184, 91);;
+  border: 1.5px solid rgb(15, 184, 91);
   border-radius: 10px;
   box-shadow: 5px 5px 10px rgba(0, 26, 0, 0.75);
   height: 3rem;
 }
-
-
 
 .img-status {
   max-width: 30px;
@@ -19,7 +17,13 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 50%;
+  width: 80%;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  width: 30%;
 }
 .priority {
   width: 25%;
@@ -36,10 +40,9 @@
 .title {
   margin: 0;
   margin-right: 200px;
-  
+
   height: 24px;
   text-align: center;
-  
 }
 .assigned::before {
   content: "Assigned to";
@@ -85,16 +88,13 @@
   font-size: 0.75rem;
 }
 
-.controls-box{
+.controls-box {
   cursor: pointer;
-  
-   color:rgb(133, 129, 129);
-  
-   padding: 2px;
- 
- 
-}
 
+  color: rgb(133, 129, 129);
+
+  padding: 2px;
+}
 
 .edit:hover {
   background: rgb(245, 242, 242);
@@ -106,8 +106,6 @@
   color: rgb(231, 20, 20);
   border-radius: 5px;
 }
-
-
 
 /* Tooltip container */
 .tooltip {

@@ -1,3 +1,6 @@
 .tasks {
   width: 60% !important;
 }
+.btn-add{
+  background: green;
+}

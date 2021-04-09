@@ -4,7 +4,8 @@
   </mat-card-header>
   <mat-card-title class="title">{{ task.name }}</mat-card-title>
   <mat-card-content class="card-body">
-    <div>
+    <div class="assigned-user">
+      <img src="../../../assets/img/user-img.png" alt="user icon" />
       <p class="assigned">
         {{ task.assigned.slice(0, task.assigned.indexOf(" ")) }}
       </p>

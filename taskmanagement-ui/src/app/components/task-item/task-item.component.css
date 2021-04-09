@@ -1,0 +1,127 @@
+.card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+  border: 1px solid red;
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px rgba(0, 26, 0, 0.75);
+  height: 3rem;
+}
+
+.img-status {
+  max-width: 30px;
+  max-height: 30px;
+}
+.card-body {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 50%;
+}
+.priority {
+  width: 25%;
+  text-align: center;
+  background-color: yellow;
+  border-radius: 10px;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  position: relative;
+}
+.title {
+  margin: 0 !important;
+  height: 24px;
+  text-align: center;
+}
+.assigned::before {
+  content: "Assigned to";
+  position: absolute;
+  top: 0px;
+  margin-left: -40px;
+  font-weight: lighter;
+  font-style: italic;
+  font-size: 0.75rem;
+}
+.assigned-user {
+  width: 6rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.assigned-user img {
+  height: 25px;
+  width: 25px;
+}
+
+.end-date::before {
+  content: "Due date";
+  position: absolute;
+  top: 0px;
+  font-weight: lighter;
+  font-style: italic;
+  font-size: 0.75rem;
+}
+
+.priority::before {
+  content: "Priority";
+  position: absolute;
+  top: -75%;
+  left: 14%;
+  margin-left: -1rem;
+  font-weight: lighter;
+  font-style: italic;
+  font-size: 0.75rem;
+}
+
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  /* Position the tooltip text */
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+
+  /* Fade in tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+img:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}

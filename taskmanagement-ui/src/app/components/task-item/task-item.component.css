@@ -177,7 +177,7 @@ img:hover {
 
 .check-item.completed .x {
   background: rgb(11, 223, 170);
-  border-color: rgb(100, 96, 96);
+  border-color: rgb(15, 184, 91);
 }
 .check-item.completed .x .material-icons {
   opacity: 1;

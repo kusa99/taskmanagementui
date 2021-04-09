@@ -10,6 +10,7 @@ export class TasksComponent implements OnInit {
   tasks: Task[];
 
   constructor() {}
+  
 
   ngOnInit(): void {
     this.tasks = [

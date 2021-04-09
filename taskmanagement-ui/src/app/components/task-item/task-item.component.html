@@ -33,7 +33,7 @@
 <ng-template #thenStatus>
   <div class="check-item completed">
     <div class="x">
-      <span class="material-icons">check</span>
+      <span class="material-icons" (click)="changeStatus(task)">check</span>
     </div>
   </div>
 </ng-template>
@@ -41,7 +41,7 @@
   <div class="tooltip">
     <div class="check-item">
       <div class="x">
-        <span class="material-icons">check</span>
+        <span class="material-icons" (click)="changeStatus(task)">check</span>
       </div>
     </div>
     <span class="tooltiptext">Click to finish</span>

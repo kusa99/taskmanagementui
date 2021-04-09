@@ -12,8 +12,9 @@ export class TaskItemComponent implements OnInit {
 
   ngOnInit(): void {}
 
-
-  onCreate(){
-    
+  changeStatus(task: Task) {
+    task.status = !task.status;
   }
+
+  onCreate() {}
 }

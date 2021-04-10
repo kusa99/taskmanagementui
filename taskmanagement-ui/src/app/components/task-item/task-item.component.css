@@ -24,6 +24,7 @@
   display: flex;
   justify-content: space-between;
   width: 30%;
+  align-items: center;
 }
 .priority {
   width: 25%;
@@ -36,12 +37,23 @@
   justify-content: center;
   font-weight: bold;
   position: relative;
+  color: white;
+}
+.priority-low {
+  background-color: yellow;
+  color: white;
+}
+.priority-high {
+  background-color: red;
+}
+.priority-medium {
+  background-color: orange;
 }
 .title {
-  margin: 0;
-  margin-right: 200px;
-
+  margin: 0 !important;
+  width: 100% !important;
   height: 24px;
+  font-size: 1.25rem;
   text-align: center;
 }
 .assigned::before {
@@ -86,6 +98,7 @@
   font-weight: lighter;
   font-style: italic;
   font-size: 0.75rem;
+  color: black;
 }
 
 .controls-box {

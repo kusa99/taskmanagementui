@@ -1,4 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
+
+import { EventEmitter } from '@angular/core';
 import { Task } from 'src/app/models/Task';
 import { TaskService } from '../../services/task.service';
 
@@ -10,7 +12,7 @@ import { TaskService } from '../../services/task.service';
 export class TaskItemComponent implements OnInit {
   @Input() task: Task;
   constructor(private taskService: TaskService) {}
-
+  @Output() deleteTask: EventEmitter<Task> = new EventEmitter();
   ngOnInit(): void {}
 
   onToggle(task: Task) {
@@ -23,4 +25,9 @@ export class TaskItemComponent implements OnInit {
   }
 
   onCreate() {}
+
+  onDelete(task){
+    this.deleteTask.emit(task);
+
+  } 
 }

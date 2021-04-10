@@ -101,21 +101,30 @@
   color: black;
 }
 
-.controls-box {
+ .edit  {
   cursor: pointer;
-
+  display: flex;
   color: rgb(133, 129, 129);
-
+  background: #eee;
+  padding: 2px;
+  border-radius: 5px;
+  
+}
+.delete {
+  cursor: pointer;
+  background: #eee;
+  color: rgb(133, 129, 129);
+  padding: 2px;
+  border-radius: 5px;
   padding: 2px;
 }
-
 .edit:hover {
-  background: rgb(245, 242, 242);
+  background: rgb(247, 247, 247);
   color: rgb(11, 173, 52);
   border-radius: 5px;
 }
 .delete:hover {
-  background: rgb(245, 242, 242);
+  background: rgb(247, 247, 247);
   color: rgb(231, 20, 20);
   border-radius: 5px;
 }

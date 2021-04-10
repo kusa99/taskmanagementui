@@ -19,18 +19,41 @@ export class TasksComponent implements OnInit {
       this.tasks = tasks;
     });
   }
-  onCreate() {
+  name: string;
+  description: string;
+  assigned: string;
+  date: string;
+  priority: string;
+  status: string;
+  openDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '60%';
-    this.dialog.open(AddTaskComponent, dialogConfig);
-    
-    this.limit += 5;
-    this.taskService.getTasks(this.limit).subscribe((tasks) => {
-      this.tasks = tasks;
+    dialogConfig.data = { name: this.name };
+    const dialogRef = this.dialog.open(AddTaskComponent, {
+      width: '60%',
+      data: {
+        name: this.name,
+        description: this.description,
+        assigned: this.assigned,
+        date: this.date,
+        priority: this.priority,
+        status: this.status,
+      },
     });
-    console.log(this.tasks);
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result);
+
+      this.name = result.name;
+      this.description = result.description;
+    });
+
+    // this.limit += 5;
+    // this.taskService.getTasks(this.limit).subscribe((tasks) => {
+    //   this.tasks = tasks;
+    // });
+    // console.log(this.tasks);
   }
   deleteTask(task: Task){
     this.tasks = this.tasks.filter(t=> t.id !== task.id);

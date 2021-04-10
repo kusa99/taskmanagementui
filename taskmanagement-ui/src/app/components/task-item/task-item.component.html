@@ -32,19 +32,19 @@
         PRIORITY
     -->
 
-    <ng-template [ngIf]="task.priority == 'HIGH'">
+    <ng-template [ngIf]="task.priority == 3">
       <div class="priority priority-high">
-        <p>{{ task.priority }}</p>
+        <p>HIGH</p>
       </div>
     </ng-template>
-    <ng-template [ngIf]="task.priority == 'MEDIUM'">
+    <ng-template [ngIf]="task.priority == 2">
       <div class="priority priority-medium">
-        <p>{{ task.priority }}</p>
+        <p>MEDIUM</p>
       </div>
     </ng-template>
-    <ng-template [ngIf]="task.priority == 'LOW'">
+    <ng-template [ngIf]="task.priority == 1">
       <div class="priority priority-low">
-        <p>{{ task.priority }}</p>
+        <p>LOW</p>
       </div>
     </ng-template>
 
@@ -71,7 +71,7 @@
 <ng-template #thenStatus>
   <div class="check-item completed">
     <div class="x">
-      <span class="material-icons" (click)="changeStatus(task)">check</span>
+      <span class="material-icons" (click)="onToggle(task)">check</span>
     </div>
   </div>
 </ng-template>
@@ -82,7 +82,7 @@
   <div class="tooltip">
     <div class="check-item">
       <div class="x">
-        <span class="material-icons" (click)="changeStatus(task)">check</span>
+        <span class="material-icons" (click)="onToggle(task)">check</span>
       </div>
     </div>
     <span class="tooltiptext">Click to finish</span>

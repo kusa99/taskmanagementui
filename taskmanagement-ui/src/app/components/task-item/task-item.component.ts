@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Task } from 'src/app/models/Task';
+import { TaskService } from '../../services/task.service';
 
 @Component({
   selector: 'app-task-item',
@@ -8,13 +9,20 @@ import { Task } from 'src/app/models/Task';
 })
 export class TaskItemComponent implements OnInit {
   @Input() task: Task;
-  constructor() {}
+  constructor(private taskService: TaskService) {}
 
   ngOnInit(): void {}
 
-  changeStatus(task: Task) {
+  onToggle(task: Task) {
+    //Toggle in UI
     task.status = !task.status;
+    //Toggle on server
+    this.taskService
+      .toggleCompleted(task)
+      .subscribe((task) => console.log(task));
   }
+
+  
 
   onCreate() {}
 }

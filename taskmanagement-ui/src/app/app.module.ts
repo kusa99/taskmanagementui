@@ -6,18 +6,16 @@ import { TasksComponent } from './components/tasks/tasks.component';
 import { TaskItemComponent } from './components/task-item/task-item.component';
 import { MatCardModule } from '@angular/material/card';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+import { AddTaskComponent } from './components/add-task/add-task.component';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatDialogModule} from '@angular/material/dialog';
+
+
 
 @NgModule({
-  declarations: [AppComponent, TasksComponent, TaskItemComponent],
-  imports: [
-    BrowserModule,
-    MatCardModule,
-    BrowserAnimationsModule,
-    MatIconModule,
-    MatButtonModule,
-  ],
+  declarations: [AppComponent, TasksComponent, TaskItemComponent, AddTaskComponent],
+  imports: [BrowserModule, MatCardModule, BrowserAnimationsModule, MatIconModule, MatButtonModule, MatDialogModule],
   providers: [],
   bootstrap: [AppComponent],
 })

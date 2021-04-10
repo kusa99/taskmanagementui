@@ -22,7 +22,5 @@ export class TaskItemComponent implements OnInit {
       .subscribe((task) => console.log(task));
   }
 
-  
-
   onCreate() {}
 }

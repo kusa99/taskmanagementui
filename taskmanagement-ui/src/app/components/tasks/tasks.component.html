@@ -1,5 +1,10 @@
-<button class="btn-add" mat-raised-button color="primary" (click)="onCreate()">
-    <mat-icon>add</mat-icon>Add task
+<button
+  class="btn-add"
+  mat-raised-button
+  color="primary"
+  (click)="openDialog()"
+>
+  <mat-icon>add</mat-icon>Add task
 </button>
-
+<h4>{{ name }}</h4>
 <app-task-item *ngFor="let task of tasks" [task]="task"> </app-task-item>

@@ -1,9 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Task } from 'src/app/models/Task';
 import { User } from '../../models/User';
 import { TasksComponent } from '../tasks/tasks.component';
+
+export interface DialogData {
+  name: string;
+  description: string;
+  assigned: string;
+  date: string;
+  priority: string;
+  status: string;
+}
+
 @Component({
   selector: 'app-add-task',
   templateUrl: './add-task.component.html',
@@ -12,17 +23,17 @@ import { TasksComponent } from '../tasks/tasks.component';
 export class AddTaskComponent implements OnInit {
   users: User[] = [
     { id: 1, first_name: 'Jasmin', last_name: 'Alimanovic' },
-    { id: 1, first_name: 'Harun', last_name: 'Kusic' },
-    { id: 1, first_name: 'Adnan', last_name: 'Alagic' },
-    { id: 1, first_name: 'Semin', last_name: 'Hasic' },
-    { id: 1, first_name: 'Ajdin', last_name: 'Civic' },
+    { id: 2, first_name: 'Harun', last_name: 'Kusic' },
+    { id: 3, first_name: 'Adnan', last_name: 'Alagic' },
+    { id: 4, first_name: 'Semin', last_name: 'Hasic' },
+    { id: 5, first_name: 'Ajdin', last_name: 'Civic' },
   ];
 
   todaysDate: string = new Date().toISOString().split('T')[0];
 
   constructor(
-    private dialog: MatDialog,
-    public dialogRef: MatDialogRef<AddTaskComponent>
+    public dialogRef: MatDialogRef<AddTaskComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {}
 
   tasks: Task[];
@@ -62,16 +73,8 @@ export class AddTaskComponent implements OnInit {
       },
     ];
     this.cTask = this.tasks[0];
-    console.log(this.tasks[0]);
   }
-  onCreate() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = '60%';
-    this.dialog.open(AddTaskComponent, dialogConfig);
-  }
-  close() {
+  close(): void {
     this.dialogRef.close();
   }
 }

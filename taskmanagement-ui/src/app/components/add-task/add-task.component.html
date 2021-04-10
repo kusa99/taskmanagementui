@@ -1,14 +1,14 @@
 <mat-grid-list cols="1" rowHeight="600px">
   <mat-form-field appearance="fill">
     <mat-label>Task name</mat-label>
-    <input matInput value="{{ cTask?.name }}" placeholder="Write a task name" />
+    <input matInput [(ngModel)]="data.name" placeholder="Write a task name" />
   </mat-form-field>
 
   <div class="inputs">
     <mat-form-field appearance="fill">
       <mat-label>Assign to</mat-label>
-      <mat-select>
-        <mat-option *ngFor="let user of users" [value]="user.id">
+      <mat-select [(ngModel)]="data.assigned">
+        <mat-option *ngFor="let user of users" [value]="user.first_name">
           {{ user.first_name }}
         </mat-option>
       </mat-select>
@@ -17,12 +17,17 @@
     <div class="controles-container">
       <mat-form-field appearance="fill">
         <mat-label>Choose a date</mat-label>
-        <input matInput [matDatepicker]="picker" min="{{ todaysDate }}" />
+        <input
+          matInput
+          [(ngModel)]="data.date"
+          [matDatepicker]="picker"
+          min="{{ todaysDate }}"
+        />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
       <div class="priority">
-        <mat-radio-group formControlName="priority">
+        <mat-radio-group [(ngModel)]="data.priority">
           <h3>Priority</h3>
           <mat-radio-button value="1" color="warn">High</mat-radio-button>
           <mat-radio-button value="2" color="warn">Medium</mat-radio-button>
@@ -30,7 +35,7 @@
         </mat-radio-group>
       </div>
       <div class="status">
-        <mat-radio-group formControlName="status">
+        <mat-radio-group [(ngModel)]="data.status">
           <h3>Status</h3>
           <mat-radio-button value="1" color="warn">To do</mat-radio-button>
           <mat-radio-button value="2" color="warn"
@@ -43,20 +48,26 @@
         <h3>Description</h3>
         <mat-form-field appearance="fill">
           <mat-label>Textarea</mat-label>
-          <textarea matInput></textarea>
+          <textarea matInput [(ngModel)]="data.description"></textarea>
         </mat-form-field>
       </div>
     </div>
   </div>
-
-  <button class="mat-raised-button" (click)="close()">Close</button>
-  <button
-    class="submit"
-    mat-raised-button
-    color="primary"
-    type="submit"
-    (click)="close()"
-  >
-    Submit
-  </button>
+  <div mat-dialog-actions>
+    <button
+      class="mat-raised-button"
+      [mat-dialog-close]="data.description"
+      cdkFocusInitial
+    >
+      Close
+    </button>
+    <button
+      [mat-dialog-close]="data"
+      class="submit"
+      mat-raised-button
+      color="primary"
+    >
+      Submit
+    </button>
+  </div>
 </mat-grid-list>

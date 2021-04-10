@@ -10,7 +10,6 @@ export class TasksComponent implements OnInit {
   tasks: Task[];
 
   constructor() {}
-  
 
   ngOnInit(): void {
     this.tasks = [
@@ -39,7 +38,7 @@ export class TasksComponent implements OnInit {
         name: 'Task 3',
         description: 'test test',
         assigned: 'Adnan Alagic',
-        priority: 'LOW',
+        priority: 'MEDIUM',
         status: true,
         start_date: '15/04/2021',
         end_date: '25/04/2021',
@@ -56,17 +55,17 @@ export class TasksComponent implements OnInit {
       },
       {
         id: 5,
-        name: 'Task 5',
+        name: 'Task taks task',
         description: 'test test',
         assigned: 'Ajdin Civic',
-        priority: 'LOW',
+        priority: 'HIGH',
         status: false,
         start_date: '15/04/2021',
         end_date: '25/04/2021',
       },
     ];
   }
-  onCreate(){
-    
+  onCreate() {
+    console.log('works');
   }
 }

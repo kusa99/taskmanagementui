@@ -1,0 +1,41 @@
+.controles-container > * {
+   
+    }
+
+.priority{
+    padding: 5px;
+}
+.priority h3{
+ display: flex;
+ justify-content: center;
+    }
+    .status{
+        padding: 5px;
+    }
+    .status h3{
+     display: flex;
+     justify-content: center;
+        }
+mat-radio-group mat-radio-button{
+    margin-left: 30px;
+}
+.radio-medium{
+    background-color: green;
+}
+.inputs{
+    display:grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.description h3{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.submit{
+    display: inline-block;
+    margin-left: 550px;
+}
+

@@ -1,1 +1,53 @@
-<p>add-task works!</p>
+<mat-grid-list cols="1"  rowHeight="600px">
+
+  <mat-form-field appearance="fill">
+    <mat-label>Task name</mat-label>
+    <input matInput placeholder ="Write a task name">
+  </mat-form-field>
+
+  <div class="inputs">
+    <mat-form-field appearance="fill">
+        <mat-label>Assign to</mat-label>
+        <input matInput placeholder ="Full Name*">
+      </mat-form-field>
+
+      
+      <div class="controles-container">
+        <mat-form-field appearance="fill">
+          <mat-label>Choose a date</mat-label>
+          <input matInput [matDatepicker]="picker">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      <div class="priority">
+        <mat-radio-group formControlName="priority">
+          <h3>Priority</h3>
+          <mat-radio-button value="1" color="warn">High</mat-radio-button>
+          <mat-radio-button value="2" color="warn">Medium</mat-radio-button>
+          <mat-radio-button value="3" color="warn">Low</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div class="status">
+        <mat-radio-group formControlName="status">
+          <h3>Status</h3>
+          <mat-radio-button value="1" color="warn">To do</mat-radio-button>
+          <mat-radio-button value="2" color="warn">In Progress</mat-radio-button>
+          <mat-radio-button value="3" color="warn">Done</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div class="description">
+        <h3>Description</h3>
+        <mat-form-field appearance="fill">
+          <mat-label>Textarea</mat-label>
+          <textarea matInput></textarea>
+        </mat-form-field>
+      </div>
+      
+    </div>
+  </div>
+
+      
+
+<button class="mat-raised-button"(click)="close()">Close</button>
+<button class="submit" mat-raised-button color="primary" type="submit" (click)="close()" >Submit</button>      
+</mat-grid-list>

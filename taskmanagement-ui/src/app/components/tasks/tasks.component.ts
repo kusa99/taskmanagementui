@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Task } from '../../models/Task';
+import { AddTaskComponent } from '../add-task/add-task.component';
+import { TaskItemComponent } from '../task-item/task-item.component';
 
 @Component({
   selector: 'app-tasks',
@@ -8,8 +11,9 @@ import { Task } from '../../models/Task';
 })
 export class TasksComponent implements OnInit {
   tasks: Task[];
+  
 
-  constructor() {}
+  constructor(private dialog: MatDialog) {}
   
 
   ngOnInit(): void {
@@ -67,6 +71,11 @@ export class TasksComponent implements OnInit {
     ];
   }
   onCreate(){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "60%";
+    this.dialog.open(AddTaskComponent, dialogConfig);
     
   }
 }

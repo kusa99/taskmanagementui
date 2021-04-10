@@ -4,7 +4,6 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Task } from 'src/app/models/Task';
 import { User } from '../../models/User';
-import { TasksComponent } from '../tasks/tasks.component';
 
 export interface DialogData {
   name: string;

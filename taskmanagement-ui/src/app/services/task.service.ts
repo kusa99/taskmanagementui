@@ -27,4 +27,9 @@ export class TaskService {
     const url = `${this.tasksUrl}/${task.id}`;
     return this.http.put(url, task, httpOptions);
   }
+
+  addTask(task: Task): Observable<any> {
+    console.log('Dodano');
+    return this.http.post(this.tasksUrl, task, httpOptions);
+  }
 }

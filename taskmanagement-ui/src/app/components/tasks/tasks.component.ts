@@ -11,12 +11,12 @@ import { TaskService } from '../../services/task.service';
 })
 export class TasksComponent implements OnInit {
   tasks: Task[];
-  limit: number = 5;
+  limit: number = 15;
   constructor(private dialog: MatDialog, private taskService: TaskService) {}
 
   ngOnInit(): void {
     this.taskService.getTasks(this.limit).subscribe((tasks) => {
-      this.tasks = tasks;
+      this.tasks = tasks.sort((t1, t2) => (t1.id < t2.id ? 1 : -1));
     });
   }
   name: string;
@@ -25,6 +25,7 @@ export class TasksComponent implements OnInit {
   date: string;
   priority: string;
   status: string;
+
   openDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
@@ -44,9 +45,20 @@ export class TasksComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
+      let task: Task = {
+        name: result.name,
+        id: 0,
+        description: result.description,
+        end_date: result.date,
+        priority: Number(result.priority),
+        status: Boolean(result.status),
+        assigned: result.assigned,
+        start_date: '2020-1-1',
+      };
 
-      this.name = result.name;
-      this.description = result.description;
+      this.taskService.addTask(task).subscribe((task) => {
+        this.tasks.push(task);
+      });
     });
 
     // this.limit += 5;

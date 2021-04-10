@@ -31,8 +31,15 @@ mat-radio-group mat-radio-button{
     align-items: center;
 
 }
-.submit{
-    display: inline-block;
-    margin-left: 550px;
+
+.buttons{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 100px;
+    width: 100%;
+    
+}
+mat-form-field{
+    width: 100%;
 }
 

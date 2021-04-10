@@ -20,16 +20,20 @@ export class TasksComponent implements OnInit {
     });
   }
   onCreate() {
-    // const dialogConfig = new MatDialogConfig();
-    // dialogConfig.disableClose = true;
-    // dialogConfig.autoFocus = true;
-    // dialogConfig.width = '60%';
-    // this.dialog.open(AddTaskComponent, dialogConfig);
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '60%';
+    this.dialog.open(AddTaskComponent, dialogConfig);
     
     this.limit += 5;
     this.taskService.getTasks(this.limit).subscribe((tasks) => {
       this.tasks = tasks;
     });
     console.log(this.tasks);
+  }
+  deleteTask(task: Task){
+    this.tasks = this.tasks.filter(t=> t.id !== task.id);
+    this.taskService.deleteTask(task).subscribe();
   }
 }

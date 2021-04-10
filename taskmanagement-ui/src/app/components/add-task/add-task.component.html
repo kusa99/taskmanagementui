@@ -39,24 +39,23 @@
           <mat-radio-button value="3" color="warn">Done</mat-radio-button>
         </mat-radio-group>
       </div>
-      <div class="description">
-        <h3>Description</h3>
-        <mat-form-field appearance="fill">
-          <mat-label>Textarea</mat-label>
-          <textarea matInput></textarea>
-        </mat-form-field>
-      </div>
+      
+     
+      
+    </div>
+    <div class="description">
+      <h3>Description</h3>
+      <mat-form-field appearance="fill">
+        <mat-label>Textarea</mat-label>
+        <textarea matInput></textarea>
+      </mat-form-field>
+    </div>
+    <div class="buttons">
+      <button class="close" mat-raised-button (click)="close()">Close</button>
+<button class="submit" mat-raised-button color="primary" type="submit"
+  (click)="close()">Submit</button>
     </div>
   </div>
 
-  <button class="mat-raised-button" (click)="close()">Close</button>
-  <button
-    class="submit"
-    mat-raised-button
-    color="primary"
-    type="submit"
-    (click)="close()"
-  >
-    Submit
-  </button>
+  
 </mat-grid-list>

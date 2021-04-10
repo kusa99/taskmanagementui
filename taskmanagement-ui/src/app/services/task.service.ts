@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
+import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Task } from '../models/Task';
+
 import { Observable } from 'rxjs';
 
 const httpOptions = {
@@ -13,8 +15,14 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class TaskService {
+  deleteTask(task: Task):Observable <Task> {
+    const url = `${this.tasksUrl}/${task.id}`;
+    return this.http.delete<Task>(url, httpOptions);
+  }
+  
   constructor(private http: HttpClient) {}
-
+  
+  
   tasksUrl: string = 'https://retoolapi.dev/TCswF7/tasks';
 
   getTasks(limit: number): Observable<Task[]> {

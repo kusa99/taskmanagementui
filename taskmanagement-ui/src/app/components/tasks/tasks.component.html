@@ -2,4 +2,6 @@
     <mat-icon>add</mat-icon>Add task
 </button>
 
-<app-task-item *ngFor="let task of tasks" [task]="task"> </app-task-item>
+<app-task-item *ngFor="let task of tasks" [task]="task"
+(deleteTask)="deleteTask($event)"
+> </app-task-item>

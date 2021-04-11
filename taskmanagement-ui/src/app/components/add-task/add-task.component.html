@@ -1,7 +1,12 @@
 <mat-grid-list cols="1" rowHeight="600px">
   <mat-form-field appearance="fill">
     <mat-label>Task name</mat-label>
-    <input matInput [(ngModel)]="data.name" placeholder="Write a task name" />
+    <input
+      matInput
+      required
+      [(ngModel)]="data.name"
+      placeholder="Write a task name"
+    />
   </mat-form-field>
 
   <div class="inputs">
@@ -54,15 +59,11 @@
     </div>
   </div>
   <div mat-dialog-actions>
-    <button
-      class="mat-raised-button"
-      [mat-dialog-close]="data.description"
-      cdkFocusInitial
-    >
+    <button class="mat-raised-button" (click)="close()" mat-dialog-closegi>
       Close
     </button>
     <button
-      [mat-dialog-close]="data"
+      (click)="onAdd(data)"
       class="submit"
       mat-raised-button
       color="primary"

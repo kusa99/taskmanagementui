@@ -45,23 +45,6 @@ export class TasksComponent implements OnInit {
         status: this.status,
       },
     });
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(result);
-      let task: Task = {
-        name: result.name,
-        id: 0,
-        description: result.description,
-        end_date: result.date,
-        priority: Number(result.priority),
-        status: Boolean(result.status),
-        assigned: result.assigned,
-        start_date: '2020-1-1',
-      };
-
-      this.taskService.addTask(task).subscribe((task) => {
-        this.tasks.push(task);
-      });
-    });
 
     // this.limit += 5;
     // this.taskService.getTasks(this.limit).subscribe((tasks) => {
@@ -69,8 +52,8 @@ export class TasksComponent implements OnInit {
     // });
     // console.log(this.tasks);
   }
-  deleteTask(task: Task){
-    this.tasks = this.tasks.filter(t=> t.id !== task.id);
+  deleteTask(task: Task) {
+    this.tasks = this.tasks.filter((t) => t.id !== task.id);
     this.taskService.deleteTask(task).subscribe();
   }
 

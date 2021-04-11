@@ -4,6 +4,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Task } from 'src/app/models/Task';
 import { User } from '../../models/User';
+import { TaskService } from '../../services/task.service';
 
 export interface DialogData {
   name: string;
@@ -32,7 +33,8 @@ export class AddTaskComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<AddTaskComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    private taskService: TaskService
   ) {}
 
   tasks: Task[];
@@ -75,5 +77,30 @@ export class AddTaskComponent implements OnInit {
   }
   close(): void {
     this.dialogRef.close();
+    console.log('close');
+  }
+  onAdd(result: any): void {
+    if (result.name === undefined) {
+      console.log('add');
+
+      return;
+    }
+
+    let task: Task = {
+      name: result?.name,
+      id: 0,
+      description: result?.description,
+      end_date: JSON.stringify(result?.date)?.slice(1, 11),
+      priority: Number(result?.priority),
+      status: Boolean(result?.status),
+      assigned: result?.assigned,
+      start_date: '2020-1-1',
+    };
+    if (result) {
+      this.dialogRef.close();
+      this.taskService.addTask(task).subscribe((task) => {
+        this.tasks.push(task);
+      });
+    }
   }
 }

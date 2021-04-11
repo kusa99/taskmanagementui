@@ -29,7 +29,9 @@ export class AddTaskComponent implements OnInit {
     { id: 4, first_name: 'Semin', last_name: 'Hasic' },
     { id: 5, first_name: 'Ajdin', last_name: 'Civic' },
   ];
-
+  startDate = new FormControl(new Date());
+  endDate = new FormControl(new Date());
+  
   todaysDate: string = new Date().toISOString().split('T')[0];
 
   constructor(

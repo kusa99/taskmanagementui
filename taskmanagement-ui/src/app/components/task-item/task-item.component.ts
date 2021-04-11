@@ -13,6 +13,7 @@ export class TaskItemComponent implements OnInit {
   @Input() task: Task;
   constructor(private taskService: TaskService) {}
   @Output() deleteTask: EventEmitter<Task> = new EventEmitter();
+
   ngOnInit(): void {}
 
   onToggle(task: Task) {
@@ -30,4 +31,5 @@ export class TaskItemComponent implements OnInit {
     this.deleteTask.emit(task);
 
   } 
+  
 }

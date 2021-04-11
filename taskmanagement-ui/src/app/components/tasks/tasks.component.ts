@@ -4,6 +4,7 @@ import { Task } from '../../models/Task';
 import { AddTaskComponent } from '../add-task/add-task.component';
 import { TaskService } from '../../services/task.service';
 
+
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
@@ -12,6 +13,7 @@ import { TaskService } from '../../services/task.service';
 export class TasksComponent implements OnInit {
   tasks: Task[];
   limit: number = 15;
+  searchKey: string;
   constructor(private dialog: MatDialog, private taskService: TaskService) {}
 
   ngOnInit(): void {
@@ -70,5 +72,16 @@ export class TasksComponent implements OnInit {
   deleteTask(task: Task){
     this.tasks = this.tasks.filter(t=> t.id !== task.id);
     this.taskService.deleteTask(task).subscribe();
+  }
+
+
+
+  onSearchClear(){
+    this.searchKey = "";
+    this.applyFilter();
+  }
+  applyFilter(){
+    
+    this.tasks.filter(task=>task.name.includes(this.searchKey))
   }
 }

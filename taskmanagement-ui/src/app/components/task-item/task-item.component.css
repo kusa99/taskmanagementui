@@ -40,14 +40,14 @@
   color: white;
 }
 .priority-low {
-  background-color: yellow;
+  background-color: rgb(61, 202, 72);
   color: white;
 }
 .priority-high {
-  background-color: red;
+  background-color: rgb(253, 63, 63);
 }
 .priority-medium {
-  background-color: orange;
+  background-color: rgb(235, 177, 71);
 }
 .title {
   margin: 0 !important;
@@ -106,7 +106,7 @@
   display: flex;
   color: rgb(133, 129, 129);
   background: #eee;
-  padding: 2px;
+  padding: 1px;
   border-radius: 5px;
   
 }
@@ -114,9 +114,9 @@
   cursor: pointer;
   background: #eee;
   color: rgb(133, 129, 129);
-  padding: 2px;
+  padding: 1px;
   border-radius: 5px;
-  padding: 2px;
+  
 }
 .edit:hover {
   background: rgb(247, 247, 247);

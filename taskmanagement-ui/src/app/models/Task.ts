@@ -1,10 +1,16 @@
+import { User } from './User';
+import { Status } from './Status';
+import { Priority } from './Priority';
+
 export class Task {
-  id: number;
-  description: string;
-  name: string;
-  priority: number;
-  status: boolean;
-  assigned: string;
-  end_date: string;
-  start_date: string;
+  assignmentId: number;
+  assignmentIsDeleted: boolean;
+  assignmentDescription: string;
+  assignmentPhotoAttach: string;
+  assignmentTitle: string;
+  priorityAssignment: Priority;
+  statusAssignment: Status;
+  userAssignment: User;
+  assignmentEndDate: string;
+  assignmentStartDate: string;
 }

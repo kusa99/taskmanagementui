@@ -18,7 +18,11 @@ export class TaskItemComponent implements OnInit {
 
   onToggle(task: Task) {
     //Toggle in UI
-    task.status = !task.status;
+    if (task.statusAssignment.statusId === 1) {
+      task.statusAssignment.statusId = 2;
+    } else {
+      task.statusAssignment.statusId = 1;
+    }
     //Toggle on server
     this.taskService
       .toggleCompleted(task)
@@ -27,9 +31,7 @@ export class TaskItemComponent implements OnInit {
 
   onCreate() {}
 
-  onDelete(task){
+  onDelete(task) {
     this.deleteTask.emit(task);
-
-  } 
-  
+  }
 }

@@ -4,12 +4,18 @@
       <!--
             STATUS
         -->
-      <div *ngIf="task.status; then thenStatus; else elseStatus"></div>
+      <div
+        *ngIf="
+          task.statusAssignment.statusId == 1;
+          then thenStatus;
+          else elseStatus
+        "
+      ></div>
     </mat-card-header>
     <!--
         TITLE
     -->
-    <mat-card-title class="title">{{ task.name }}</mat-card-title>
+    <mat-card-title class="title">{{ task.assignmentTitle }}</mat-card-title>
   </div>
   <mat-card-content class="card-body">
     <!--
@@ -18,7 +24,7 @@
     <div class="assigned-user">
       <img src="../../../assets/img/user-img.png" alt="user icon" />
       <p class="assigned">
-        {{ task.assigned }}
+        {{ task.userAssignment.userFirstName }}
       </p>
     </div>
 
@@ -26,31 +32,33 @@
         START DATE
     -->
     <div>
-      <p class="start-date">{{ task.start_date }}</p>
+      <p class="start-date">
+        {{ task.assignmentStartDate.slice(0, 10) }}
+      </p>
     </div>
     <!--
         END DATE
     -->
 
     <div>
-      <p class="end-date">{{ task.end_date }}</p>
+      <p class="end-date">{{ task.assignmentEndDate.slice(0, 10) }}</p>
     </div>
 
     <!--
         PRIORITY
     -->
 
-    <ng-template [ngIf]="task.priority == 1">
+    <ng-template [ngIf]="task.priorityAssignment.priorityId == 1">
       <div class="priority priority-high">
         <p>HIGH</p>
       </div>
     </ng-template>
-    <ng-template [ngIf]="task.priority == 2">
+    <ng-template [ngIf]="task.priorityAssignment.priorityId == 2">
       <div class="priority priority-medium">
         <p>MEDIUM</p>
       </div>
     </ng-template>
-    <ng-template [ngIf]="task.priority == 3">
+    <ng-template [ngIf]="task.priorityAssignment.priorityId == 3">
       <div class="priority priority-low">
         <p>LOW</p>
       </div>

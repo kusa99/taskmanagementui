@@ -17,7 +17,10 @@ export class TasksComponent implements OnInit {
 
   ngOnInit(): void {
     this.taskService.getTasks(this.limit).subscribe((tasks) => {
-      this.tasks = tasks.sort((t1, t2) => (t1.id < t2.id ? 1 : -1));
+      this.tasks = tasks.sort((t1, t2) =>
+        t1.assignmentId < t2.assignmentId ? 1 : -1
+      );
+      console.log(tasks);
     });
   }
   name: string;
@@ -54,7 +57,7 @@ export class TasksComponent implements OnInit {
     // console.log(this.tasks);
   }
   deleteTask(task: Task) {
-    this.tasks = this.tasks.filter((t) => t.id !== task.id);
+    this.tasks = this.tasks.filter((t) => t.assignmentId !== task.assignmentId);
     this.taskService.deleteTask(task).subscribe();
   }
 
@@ -69,9 +72,9 @@ export class TasksComponent implements OnInit {
         (tasks) =>
           (this.tasks = tasks.filter((task) =>
             (
-              task.name.toLowerCase() +
-              task.assigned.toLowerCase() +
-              task.end_date.toLowerCase()
+              task?.assignmentTitle?.toLowerCase() +
+              task.userAssignment.userFirstName?.toLowerCase() +
+              task.assignmentEndDate?.toLowerCase()
             ).includes(this.searchKey.trim().toLowerCase())
           ))
       );

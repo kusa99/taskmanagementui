@@ -16,13 +16,13 @@ const httpOptions = {
 })
 export class TaskService {
   deleteTask(task: Task): Observable<Task> {
-    const url = `${this.tasksUrl}/${task.id}`;
-    return this.http.delete<Task>(url, httpOptions);
+    const url = `https://localhost:44371/api/Assignments/DeleteAssignment/${task.assignmentId}`;
+    return this.http.put<Task>(url, task, httpOptions);
   }
 
   constructor(private http: HttpClient) {}
 
-  tasksUrl: string = 'https://retoolapi.dev/TCswF7/tasks';
+  tasksUrl: string = 'https://localhost:44371/api/Assignments';
 
   getTasks(limit: number = 500): Observable<Task[]> {
     let Limit = limit ?? 5;
@@ -31,7 +31,7 @@ export class TaskService {
   }
 
   toggleCompleted(task: Task): Observable<any> {
-    const url = `${this.tasksUrl}/${task.id}`;
+    const url = `${this.tasksUrl}/${task.assignmentId}`;
     return this.http.put(url, task, httpOptions);
   }
 

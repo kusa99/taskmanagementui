@@ -4,7 +4,6 @@ import { Task } from '../../models/Task';
 import { AddTaskComponent } from '../add-task/add-task.component';
 import { TaskService } from '../../services/task.service';
 
-
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
@@ -57,14 +56,20 @@ export class TasksComponent implements OnInit {
     this.taskService.deleteTask(task).subscribe();
   }
 
-
-
-  onSearchClear(){
-    this.searchKey = "";
+  onSearchClear() {
+    this.searchKey = '';
     this.applyFilter();
   }
-  applyFilter(){
-    
-    this.tasks.filter(task=>task.name.includes(this.searchKey))
+  applyFilter() {
+    this.taskService
+      .getTasks()
+      .subscribe(
+        (tasks) =>
+          (this.tasks = tasks.filter((task) =>
+            task.name
+              .toLowerCase()
+              .includes(this.searchKey.trim().toLowerCase())
+          ))
+      );
   }
 }

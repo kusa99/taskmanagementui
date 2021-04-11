@@ -37,6 +37,6 @@ mat-radio-group mat-radio-button {
 .description {
   width: 100%;
 }
-.description mat-form-field {
+mat-form-field {
   width: 100%;
 }

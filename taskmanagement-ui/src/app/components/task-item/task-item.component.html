@@ -32,7 +32,7 @@
         PRIORITY
     -->
 
-    <ng-template [ngIf]="task.priority == 3">
+    <ng-template [ngIf]="task.priority == 1">
       <div class="priority priority-high">
         <p>HIGH</p>
       </div>
@@ -42,7 +42,7 @@
         <p>MEDIUM</p>
       </div>
     </ng-template>
-    <ng-template [ngIf]="task.priority == 1">
+    <ng-template [ngIf]="task.priority == 3">
       <div class="priority priority-low">
         <p>LOW</p>
       </div>

@@ -23,7 +23,8 @@ export class TasksComponent implements OnInit {
   name: string;
   description: string;
   assigned: string;
-  date: string;
+  end_date: string;
+  start_date: string;
   priority: string;
   status: string;
 
@@ -39,7 +40,8 @@ export class TasksComponent implements OnInit {
         name: this.name,
         description: this.description,
         assigned: this.assigned,
-        date: this.date,
+        end_date: this.end_date,
+        start_date: this.start_date,
         priority: this.priority,
         status: this.status,
       },
@@ -66,9 +68,11 @@ export class TasksComponent implements OnInit {
       .subscribe(
         (tasks) =>
           (this.tasks = tasks.filter((task) =>
-            task.name
-              .toLowerCase()
-              .includes(this.searchKey.trim().toLowerCase())
+            (
+              task.name.toLowerCase() +
+              task.assigned.toLowerCase() +
+              task.end_date.toLowerCase()
+            ).includes(this.searchKey.trim().toLowerCase())
           ))
       );
   }

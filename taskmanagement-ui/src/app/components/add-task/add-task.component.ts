@@ -10,7 +10,8 @@ export interface DialogData {
   name: string;
   description: string;
   assigned: string;
-  date: string;
+  end_date: string;
+  start_date: string;
   priority: string;
   status: string;
 }
@@ -77,7 +78,6 @@ export class AddTaskComponent implements OnInit {
   }
   close(): void {
     this.dialogRef.close();
-    console.log('close');
   }
   onAdd(result: any): void {
     if (result.name === undefined) {
@@ -90,11 +90,11 @@ export class AddTaskComponent implements OnInit {
       name: result?.name,
       id: 0,
       description: result?.description,
-      end_date: JSON.stringify(result?.date)?.slice(1, 11),
+      end_date: JSON.stringify(result?.end_date)?.slice(1, 11),
       priority: Number(result?.priority),
       status: Boolean(result?.status),
       assigned: result?.assigned,
-      start_date: '2020-1-1',
+      start_date: JSON.stringify(result?.start_date)?.slice(1, 11),
     };
     if (result) {
       this.dialogRef.close();

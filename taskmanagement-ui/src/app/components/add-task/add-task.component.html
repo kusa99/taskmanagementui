@@ -20,16 +20,31 @@
     </mat-form-field>
 
     <div class="controles-container">
+
       <mat-form-field appearance="fill">
         <mat-label>Choose start date</mat-label>
         <input
           matInput
           [(ngModel)]="data.start_date"
-          [matDatepicker]="picker"
+          [matDatepicker]="picker1"
           min="{{ todaysDate }}"
+          [formControl]="startDate"
         />
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Choose end date</mat-label>
+        <input
+          matInput
+          [(ngModel)]="data.end_date"
+          [matDatepicker]="picker2"
+          [formControl]="endDate"
+          [min]="startDate.value"
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Choose end date</mat-label>

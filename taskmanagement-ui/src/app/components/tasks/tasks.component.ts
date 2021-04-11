@@ -23,8 +23,8 @@ export class TasksComponent implements OnInit {
   name: string;
   description: string;
   assigned: string;
-  end_date: string;
   start_date: string;
+  end_date: string;
   priority: string;
   status: string;
 
@@ -40,8 +40,8 @@ export class TasksComponent implements OnInit {
         name: this.name,
         description: this.description,
         assigned: this.assigned,
-        end_date: this.end_date,
         start_date: this.start_date,
+        end_date: this.end_date,
         priority: this.priority,
         status: this.status,
       },

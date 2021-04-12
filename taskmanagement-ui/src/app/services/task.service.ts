@@ -27,7 +27,7 @@ export class TaskService {
   getTasks(limit: number = 500): Observable<Task[]> {
     let Limit = limit ?? 5;
     let taskLimit = `?_limit=${limit}`;
-    return this.http.get<Task[]>(`${this.tasksUrl}${taskLimit}`);
+    return this.http.get<Task[]>(`${this.tasksUrl}`);
   }
 
   toggleCompleted(task: Task): Observable<any> {

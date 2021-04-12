@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Task } from 'src/app/models/Task';
 import { User } from '../../models/User';
 import { TaskService } from '../../services/task.service';
+import { UserService } from '../../services/user.service';
 
 export interface DialogData {
   name: string;
@@ -30,20 +31,18 @@ export class AddTaskComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<AddTaskComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    private taskService: TaskService
+    private taskService: TaskService,
+    private userService: UserService
   ) {}
 
   tasks: Task[];
   cTask: Task;
 
   ngOnInit(): void {
-    this.users = [
-      {
-        userId: 1,
-        userFirstName: 'Jasmin',
-        userLastName: 'Alimanovic',
-      },
-    ];
+    this.userService.getUsers().subscribe((users) => {
+      this.users = users;
+      console.log(users)
+    });
   }
   close(): void {
     this.dialogRef.close();

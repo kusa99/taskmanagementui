@@ -2,6 +2,21 @@
     <button class="btn-add" mat-raised-button color="primary" 
     (click)="openDialog()"><mat-icon>add</mat-icon>Add task
 </button>
+
+
+
+  <mat-form-field appearance="fill">
+    <mat-label>Status</mat-label>
+    <mat-select ngModel (ngModelChange)="getSelectedStatus($event)">
+      <mat-option
+        *ngFor="let status of statusi"
+        [value]="status.statusId"
+      >
+        {{ status.statusTitle }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
 <mat-form-field class="search-form-field">
 <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off"
 (keyup)="applyFilter()" >
@@ -11,7 +26,11 @@
     </button>
     </mat-form-field>
 </div>
+<div class="tasks-items">
+
+
 <h4>{{ name }}</h4>
 <app-task-item *ngFor="let task of tasks" [task]="task"
 (deleteTask)="deleteTask($event)"
 > </app-task-item>
+</div>

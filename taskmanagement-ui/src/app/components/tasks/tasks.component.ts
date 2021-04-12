@@ -3,6 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Task } from '../../models/Task';
 import { AddTaskComponent } from '../add-task/add-task.component';
 import { TaskService } from '../../services/task.service';
+import { Status } from 'src/app/models/Status';
 
 @Component({
   selector: 'app-tasks',
@@ -13,14 +14,28 @@ export class TasksComponent implements OnInit {
   tasks: Task[];
   limit: number = 15;
   searchKey: string;
-  constructor(private dialog: MatDialog, private taskService: TaskService) {}
+  statusi : Status[];
 
+  constructor(private dialog: MatDialog, private taskService: TaskService) {}
+  getSelectedStatus(event){
+    this.taskService.getTasks(this.limit).subscribe((tasks) => {
+      this.tasks = tasks.filter((t) =>
+        t.statusAssignment.statusId === event
+      );
+      console.log(tasks);
+    });
+    
+  }
   ngOnInit(): void {
     this.taskService.getTasks(this.limit).subscribe((tasks) => {
       this.tasks = tasks.sort((t1, t2) =>
         t1.assignmentId < t2.assignmentId ? 1 : -1
       );
       console.log(tasks);
+    });
+
+    this.taskService.getStatus().subscribe((statusi)=>{
+      this.statusi = statusi;
     });
   }
   name: string;
@@ -79,4 +94,6 @@ export class TasksComponent implements OnInit {
           ))
       );
   }
+
+  
 }

@@ -31,7 +31,7 @@ mat-radio-group mat-radio-button {
 }
 .submit {
   display: inline-block;
-  margin-left: 550px;
+  margin-left: 300px;
 }
 
 .description {
@@ -39,4 +39,7 @@ mat-radio-group mat-radio-button {
 }
 mat-form-field {
   width: 100%;
+}
+.mat-dialog-actions{
+  margin-bottom: 100px;
 }

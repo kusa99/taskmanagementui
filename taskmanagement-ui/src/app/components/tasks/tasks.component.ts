@@ -18,13 +18,22 @@ export class TasksComponent implements OnInit {
 
   constructor(private dialog: MatDialog, private taskService: TaskService) {}
   getSelectedStatus(event){
+
+    if(event==0){ this.taskService.getTasks(this.limit).subscribe((tasks) => {
+      this.tasks = tasks.sort((t1, t2) =>
+      t1.assignmentId < t2.assignmentId ? 1 : -1
+    );
+    
+    });
+  }
+  else{
     this.taskService.getTasks(this.limit).subscribe((tasks) => {
       this.tasks = tasks.filter((t) =>
         t.statusAssignment.statusId === event
       );
-      console.log(tasks);
-    });
     
+    });
+    }
   }
   ngOnInit(): void {
     this.taskService.getTasks(this.limit).subscribe((tasks) => {

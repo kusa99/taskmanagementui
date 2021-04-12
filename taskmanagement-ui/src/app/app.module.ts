@@ -20,9 +20,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
-import { TaskService }  from './services/task.service';
-
-import {ReactiveFormsModule, FormsModule} from "@angular/forms";
+import { TaskService } from './services/task.service';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -51,8 +50,7 @@ import {ReactiveFormsModule, FormsModule} from "@angular/forms";
     MatSelectModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
-    
+    FormsModule,
   ],
   providers: [TaskService],
   bootstrap: [AppComponent],

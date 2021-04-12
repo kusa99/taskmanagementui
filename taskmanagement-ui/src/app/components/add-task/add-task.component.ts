@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Task } from 'src/app/models/Task';
 import { User } from '../../models/User';
@@ -27,6 +26,7 @@ export class AddTaskComponent implements OnInit {
   startDate = new FormControl(new Date());
   endDate = new FormControl(new Date());
   users: User[];
+  fileName: string = '';
   todaysDate: string = new Date().toISOString().split('T')[0];
 
   constructor(
@@ -38,7 +38,6 @@ export class AddTaskComponent implements OnInit {
 
   tasks: Task[];
   cTask: Task;
-
   ngOnInit(): void {
     this.userService.getUsers().subscribe((users) => {
       this.users = users;
@@ -48,13 +47,21 @@ export class AddTaskComponent implements OnInit {
   close(): void {
     this.dialogRef.close();
   }
+
+  onFileSelected(event) {
+    const file: File = event.target.files[0];
+
+    if (file) {
+      this.fileName = file.name;
+    }
+  }
+
   onAdd(result: any): void {
     if (result.assignmentTitle === undefined) {
       console.log('add');
 
       return;
     }
-
     let task: ITask = {
       assignmentDescription: result.assignmentDescription,
       assignmentTitle: result.assignmentTitle,
@@ -63,7 +70,7 @@ export class AddTaskComponent implements OnInit {
       assignmentStatusId: result.assignmentStatusId,
       assignmentPriorityId: result.assignmentPriorityId,
       assignmentUserId: result.assignmentUserId,
-      assignmentPhotoAttach: 'string',
+      assignmentPhotoAttach: '',
     };
     console.log(task);
     if (result) {

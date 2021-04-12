@@ -13,10 +13,7 @@
     <mat-form-field appearance="fill">
       <mat-label>Assign to</mat-label>
       <mat-select [(ngModel)]="data.assignmentUserId">
-        <mat-option
-          *ngFor="let user of users"
-          [value]="user.userId"
-        >
+        <mat-option *ngFor="let user of users" [value]="user.userId">
           {{ user.userFirstName }} {{ user.userLastName }}
         </mat-option>
       </mat-select>
@@ -72,11 +69,20 @@
           <mat-radio-button value="3" color="warn">Done</mat-radio-button>
         </mat-radio-group>
       </div>
+      <input
+        (change)="onFileSelected($event)"
+        accept="image/*"
+        [(ngModel)]="data.assignmentPhotoAttach"
+        type="file"
+      />
       <div class="description">
         <h3>Description</h3>
         <mat-form-field appearance="fill">
           <mat-label>Textarea</mat-label>
-          <textarea matInput [(ngModel)]="data.assignmentDescription"></textarea>
+          <textarea
+            matInput
+            [(ngModel)]="data.assignmentDescription"
+          ></textarea>
         </mat-form-field>
       </div>
     </div>

@@ -4,13 +4,41 @@
       <!--
             STATUS
         -->
-      <div
+      <!-- <div
         *ngIf="
           task.statusAssignment.statusId == 1;
           then thenStatus;
           else elseStatus
         "
-      ></div>
+      ></div> -->
+      <ng-template [ngIf]="task.statusAssignment.statusId === 1">
+        <div class="tooltip">
+          <div class="check-item">
+            <div class="x">
+              <span class="material-icons" (click)="onToggle(task)">check</span>
+            </div>
+          </div>
+          <span class="tooltiptext">Click to start</span>
+        </div>
+      </ng-template>
+      <ng-template [ngIf]="task.statusAssignment.statusId === 2">
+        <div class="chect-item">
+          <div class="check-item completed">
+            <div class="x">
+              <span (click)="onToggle(task)" class="material-icons">
+                rotate_right
+              </span>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template [ngIf]="task.statusAssignment.statusId === 3">
+        <div class="check-item completed">
+          <div class="x">
+            <span class="material-icons" (click)="onToggle(task)">check</span>
+          </div>
+        </div>
+      </ng-template>
     </mat-card-header>
     <!--
         TITLE

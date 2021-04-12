@@ -13,19 +13,30 @@ const httpOptions = {
   }),
 };
 
+export interface Itask {
+  assignmentDescription: string;
+  assignmentTitle: string;
+  assignmentPriorityId: number;
+  assignmentStatusId: number;
+  assignmentUserId: number;
+  assignmentEndDate: string;
+  assignmentStartDate: string;
+  assignmentPhotoAttach: string;
+  assignmentIsDeleted: boolean;
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class TaskService {
-  deleteTask(task: Task): Observable<Task> {
-    const url = `https://localhost:44371/api/Assignments/DeleteAssignment/${task.assignmentId}`;
-    return this.http.put<Task>(url, task, httpOptions);
-  }
+  taskUpdateUrl: string =
+    'https://localhost:44371/api/Assignments/UpdateAssignment';
 
   constructor(private http: HttpClient) {}
 
   tasksUrl: string = 'https://localhost:44371/api/Assignments';
-  taskUrlPost: string = 'https://localhost:44371/api/Assignments/NewAssignment';
+  taskUrlPost: string =
+    'https://localhost:44371/api/Assignments/UpdateAssignment';
 
   getTasks(limit: number = 500): Observable<Task[]> {
     let Limit = limit ?? 5;
@@ -34,8 +45,19 @@ export class TaskService {
   }
 
   toggleCompleted(task: Task): Observable<any> {
-    const url = `${this.tasksUrl}/${task.assignmentId}`;
-    return this.http.put(url, task, httpOptions);
+    const url = `${this.taskUpdateUrl}/${task.assignmentId}`;
+    const itask: Itask = {
+      assignmentDescription: task.assignmentDescription,
+      assignmentEndDate: task.assignmentEndDate,
+      assignmentPhotoAttach: task.assignmentPhotoAttach,
+      assignmentPriorityId: task.priorityAssignment.priorityId,
+      assignmentStartDate: task.assignmentStartDate,
+      assignmentTitle: task.assignmentTitle,
+      assignmentStatusId: task.statusAssignment.statusId,
+      assignmentUserId: task.userAssignment.userId,
+      assignmentIsDeleted: false,
+    };
+    return this.http.put(url, itask, httpOptions);
   }
 
   addTask(task: ITask): Observable<any> {
@@ -43,8 +65,12 @@ export class TaskService {
     return this.http.post(this.taskUrlPost, task, httpOptions);
   }
 
-  getStatus(): Observable<Status[]> {
-    return this.http.get<Status[]>("https://localhost:44371/api/Statuses");
+  deleteTask(task: Task): Observable<Task> {
+    const url = `https://localhost:44371/api/Assignments/DeleteAssignment/${task.assignmentId}`;
+    return this.http.put<Task>(url, task, httpOptions);
   }
 
+  getStatus(): Observable<Status[]> {
+    return this.http.get<Status[]>('https://localhost:44371/api/Statuses');
+  }
 }

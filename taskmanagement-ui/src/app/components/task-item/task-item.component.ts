@@ -20,7 +20,9 @@ export class TaskItemComponent implements OnInit {
     //Toggle in UI
     if (task.statusAssignment.statusId === 1) {
       task.statusAssignment.statusId = 2;
-    } else {
+    } else if (task.statusAssignment.statusId == 2) {
+      task.statusAssignment.statusId = 3;
+    } else if (task.statusAssignment.statusId == 3) {
       task.statusAssignment.statusId = 1;
     }
     //Toggle on server

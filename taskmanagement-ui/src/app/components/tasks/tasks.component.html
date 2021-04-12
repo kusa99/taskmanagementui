@@ -2,12 +2,11 @@
     <button class="btn-add" mat-raised-button color="primary" 
     (click)="openDialog()"><mat-icon>add</mat-icon>Add task
 </button>
-
-
-
-  <mat-form-field appearance="fill">
+    <div class="status-div">
+  <mat-form-field class="status" appearance="fill">
     <mat-label>Status</mat-label>
     <mat-select ngModel (ngModelChange)="getSelectedStatus($event)">
+        <mat-option [value]="0">Home</mat-option>
       <mat-option
         *ngFor="let status of statusi"
         [value]="status.statusId"
@@ -25,6 +24,7 @@
 <mat-icon>close</mat-icon>
     </button>
     </mat-form-field>
+</div>
 </div>
 <div class="tasks-items">
 

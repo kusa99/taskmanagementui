@@ -5,6 +5,7 @@ import { Task } from '../models/Task';
 
 import { Observable } from 'rxjs';
 import { ITask } from '../components/add-task/add-task.component';
+import { Status } from '../models/Status';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -41,4 +42,9 @@ export class TaskService {
     console.log('Dodano');
     return this.http.post(this.taskUrlPost, task, httpOptions);
   }
+
+  getStatus(): Observable<Status[]> {
+    return this.http.get<Status[]>("https://localhost:44371/api/Statuses");
+  }
+
 }

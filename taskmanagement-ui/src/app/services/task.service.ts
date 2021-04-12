@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Task } from '../models/Task';
 
 import { Observable } from 'rxjs';
+import { ITask } from '../components/add-task/add-task.component';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -23,6 +24,7 @@ export class TaskService {
   constructor(private http: HttpClient) {}
 
   tasksUrl: string = 'https://localhost:44371/api/Assignments';
+  taskUrlPost: string = 'https://localhost:44371/api/Assignments/NewAssignment';
 
   getTasks(limit: number = 500): Observable<Task[]> {
     let Limit = limit ?? 5;
@@ -35,8 +37,8 @@ export class TaskService {
     return this.http.put(url, task, httpOptions);
   }
 
-  addTask(task: Task): Observable<any> {
+  addTask(task: ITask): Observable<any> {
     console.log('Dodano');
-    return this.http.post(this.tasksUrl, task, httpOptions);
+    return this.http.post(this.taskUrlPost, task, httpOptions);
   }
 }

@@ -7,14 +7,15 @@ import { User } from '../../models/User';
 import { TaskService } from '../../services/task.service';
 import { UserService } from '../../services/user.service';
 
-export interface DialogData {
-  name: string;
-  description: string;
-  assigned: string;
-  start_date: string;
-  end_date: string;
-  priority: string;
-  status: string;
+export interface ITask {
+  assignmentDescription: string;
+  assignmentTitle: string;
+  assignmentPriorityId: number;
+  assignmentStatusId: number;
+  assignmentUserId: number;
+  assignmentEndDate: string;
+  assignmentStartDate: string;
+  assignmentPhotoAttach: string;
 }
 
 @Component({
@@ -30,7 +31,7 @@ export class AddTaskComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<AddTaskComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    @Inject(MAT_DIALOG_DATA) public data: ITask,
     private taskService: TaskService,
     private userService: UserService
   ) {}
@@ -41,34 +42,30 @@ export class AddTaskComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUsers().subscribe((users) => {
       this.users = users;
-      console.log(users)
+      console.log(users);
     });
   }
   close(): void {
     this.dialogRef.close();
   }
   onAdd(result: any): void {
-    if (result.name === undefined) {
+    if (result.assignmentTitle === undefined) {
       console.log('add');
 
       return;
     }
 
-    let task: Task = {
-      assignmentTitle: result?.name,
-      assignmentId: 0,
-      assignmentDescription: result?.description,
-      assignmentEndDate: JSON.stringify(result?.end_date)?.slice(1, 11),
-      priorityAssignment: result?.priorityAssignment,
-      statusAssignment: result?.statusAssignment,
-      userAssignment: result?.userAssignment,
-      assignmentStartDate: JSON.stringify(result?.assignmentStartDate)?.slice(
-        1,
-        11
-      ),
-      assignmentIsDeleted: false,
-      assignmentPhotoAttach: '',
+    let task: ITask = {
+      assignmentDescription: result.assignmentDescription,
+      assignmentTitle: result.assignmentTitle,
+      assignmentStartDate: result.assignmentStartDate,
+      assignmentEndDate: result.assignmentEndDate,
+      assignmentStatusId: result.assignmentStatusId,
+      assignmentPriorityId: result.assignmentPriorityId,
+      assignmentUserId: result.assignmentUserId,
+      assignmentPhotoAttach: 'string',
     };
+    console.log(task);
     if (result) {
       this.dialogRef.close();
       this.taskService.addTask(task).subscribe((task) => {

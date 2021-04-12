@@ -4,7 +4,7 @@
     <input
       matInput
       required
-      [(ngModel)]="data.name"
+      [(ngModel)]="data.assignmentTitle"
       placeholder="Write a task name"
     />
   </mat-form-field>
@@ -12,11 +12,10 @@
   <div class="inputs">
     <mat-form-field appearance="fill">
       <mat-label>Assign to</mat-label>
-      <mat-select [(ngModel)]="data.assigned">
+      <mat-select [(ngModel)]="data.assignmentUserId">
         <mat-option
-          itemid="user.userId"
           *ngFor="let user of users"
-          [value]="user.first_name"
+          [value]="user.userId"
         >
           {{ user.userFirstName }} {{ user.userLastName }}
         </mat-option>
@@ -28,7 +27,7 @@
         <mat-label>Choose start date</mat-label>
         <input
           matInput
-          [(ngModel)]="data.start_date"
+          [(ngModel)]="data.assignmentStartDate"
           [matDatepicker]="picker1"
           min="{{ todaysDate }}"
           [formControl]="startDate"
@@ -44,7 +43,7 @@
         <mat-label>Choose end date</mat-label>
         <input
           matInput
-          [(ngModel)]="data.end_date"
+          [(ngModel)]="data.assignmentEndDate"
           [matDatepicker]="picker2"
           [formControl]="endDate"
           [min]="startDate.value"
@@ -56,7 +55,7 @@
         <mat-datepicker #picker2></mat-datepicker>
       </mat-form-field>
       <div class="priority">
-        <mat-radio-group [(ngModel)]="data.priority">
+        <mat-radio-group [(ngModel)]="data.assignmentPriorityId">
           <h3>Priority</h3>
           <mat-radio-button value="1" color="warn">High</mat-radio-button>
           <mat-radio-button value="2" color="warn">Medium</mat-radio-button>
@@ -64,7 +63,7 @@
         </mat-radio-group>
       </div>
       <div class="status">
-        <mat-radio-group [(ngModel)]="data.status">
+        <mat-radio-group [(ngModel)]="data.assignmentStatusId">
           <h3>Status</h3>
           <mat-radio-button value="1" color="warn">To do</mat-radio-button>
           <mat-radio-button value="2" color="warn"
@@ -77,7 +76,7 @@
         <h3>Description</h3>
         <mat-form-field appearance="fill">
           <mat-label>Textarea</mat-label>
-          <textarea matInput [(ngModel)]="data.description"></textarea>
+          <textarea matInput [(ngModel)]="data.assignmentDescription"></textarea>
         </mat-form-field>
       </div>
     </div>

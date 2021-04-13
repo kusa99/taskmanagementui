@@ -23,7 +23,6 @@ export interface ITask {
   templateUrl: './add-task.component.html',
   styleUrls: ['./add-task.component.css'],
 })
-
 export class AddTaskComponent implements OnInit {
   startDate = new FormControl(new Date());
   endDate = new FormControl(new Date());
@@ -39,7 +38,6 @@ export class AddTaskComponent implements OnInit {
     private userService: UserService
   ) {}
 
-  
   ngOnInit(): void {
     this.userService.getUsers().subscribe((users) => {
       this.users = users;
@@ -52,19 +50,36 @@ export class AddTaskComponent implements OnInit {
 
   onAdd(result: any): void {
     if (result.assignmentTitle === undefined) {
-
       return;
     }
     this.successAlertBox();
   }
 
+  onEdit(result) {
+    if (result.assignmentTitle === undefined) {
+      return;
+    }
+    this.successAlertEditBox();
+  }
+
+  //pop up for successfully added task
   successAlertBox() {
     Swal.fire({
       position: 'center',
       icon: 'success',
       title: 'Task successfully added!',
       showConfirmButton: false,
-      timer: 1500
-    })
-}
+      timer: 1500,
+    });
+  }
+  //pop up for successfully edited task
+  successAlertEditBox() {
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Task successfully edited!',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  }
 }

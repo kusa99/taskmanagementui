@@ -41,13 +41,13 @@ export class TasksComponent implements OnInit {
       });
     }
   }
+
   ngOnInit(): void {
     this.taskService.getTasks(this.limit).subscribe((tasks) => {
       this.tasks = tasks.sort((t1, t2) =>
         t1.assignmentId < t2.assignmentId ? 1 : -1
       );
     });
-
     this.taskService.getStatus().subscribe((statusi) => {
       this.statusi = statusi;
     });
@@ -72,6 +72,7 @@ export class TasksComponent implements OnInit {
         status: this.status,
       },
     });
+
     dialogRef.afterClosed().subscribe((result) => {
       let itask: ITask = {
         assignmentDescription: result.assignmentDescription,
@@ -112,36 +113,37 @@ export class TasksComponent implements OnInit {
         });
       }
     });
-
     // this.limit += 5;
     // this.taskService.getTasks(this.limit).subscribe((tasks) => {
     //   this.tasks = tasks;
     // });
     // console.log(this.tasks);
   }
+
   deleteTask(task: Task) {
     this.tasks = this.tasks.filter((t) => t.assignmentId !== task.assignmentId);
     this.taskService.deleteTask(task).subscribe();
   }
-  // editTask(task:Task){
-  //   const dialogConfig = new MatDialogConfig();
-  //   dialogConfig.disableClose = true;
-  //   dialogConfig.autoFocus = true;
-  //   dialogConfig.width = '60%';
-  //   dialogConfig.data = { name: this.name };
-  //   const dialogRef = this.dialog.open(AddTaskComponent, {
-  //     width: '60%',
-  //     data: {
-  //       assignmentTitle: task.assignmentTitle,
-  //       assignmentDescription: task.assignmentDescription,
-  //       assignmentUserId: task.userAssignment.userId,
-  //       assignmentStartDate: task.assignmentStartDate,
-  //       assignmentEndDate: task.assignmentEndDate,
-  //       assignmentPriorityId: task.priorityAssignment,
-  //       assignmentStatusId: task.statusAssignment,
-  //     },
-  //   });
-  // }
+
+  editTask(task:Task){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '60%';
+    dialogConfig.data = { name: this.name };
+    const dialogRef = this.dialog.open(AddTaskComponent, {
+      width: '60%',
+      data: {
+        assignmentTitle: task.assignmentTitle,
+        assignmentDescription: task.assignmentDescription,
+        assignmentUserId: task.userAssignment.userId,
+        assignmentStartDate: task.assignmentStartDate,
+        assignmentEndDate: task.assignmentEndDate,
+        assignmentPriorityId: task.priorityAssignment,
+        assignmentStatusId: task.statusAssignment,
+      },
+    });
+  }
 
   updateTask(task: Task) {
     //Toggle in UI
@@ -152,23 +154,22 @@ export class TasksComponent implements OnInit {
     } else if (task.statusAssignment.statusId == 3) {
       task.statusAssignment.statusId = 1;
     }
-
     //Toggle on server
     this.taskService
       .toggleCompleted(task)
       .subscribe((task) => console.log(task));
-
     if (this.sortid != 0) {
       this.tasks = this.tasks.filter(
         (t) => t.statusAssignment.statusId === this.sortid
       );
     }
   }
-
+  
   onSearchClear() {
     this.searchKey = '';
     this.applyFilter();
   }
+
   applyFilter() {
     this.taskService
       .getTasks()

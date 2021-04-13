@@ -23,10 +23,13 @@ export interface ITask {
   templateUrl: './add-task.component.html',
   styleUrls: ['./add-task.component.css'],
 })
+
 export class AddTaskComponent implements OnInit {
   startDate = new FormControl(new Date());
   endDate = new FormControl(new Date());
   users: User[];
+  tasks: Task[];
+  cTask: Task;
   todaysDate: string = new Date().toISOString().split('T')[0];
 
   constructor(
@@ -36,13 +39,13 @@ export class AddTaskComponent implements OnInit {
     private userService: UserService
   ) {}
 
-  tasks: Task[];
-  cTask: Task;
+  
   ngOnInit(): void {
     this.userService.getUsers().subscribe((users) => {
       this.users = users;
     });
   }
+
   close(): void {
     this.dialogRef.close();
   }
@@ -54,7 +57,14 @@ export class AddTaskComponent implements OnInit {
     }
     this.successAlertBox();
   }
+
   successAlertBox() {
-    Swal.fire('Whooa!', 'Order has been proceeded!', 'success');
-  }
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Task successfully added!',
+      showConfirmButton: false,
+      timer: 1500
+    })
+}
 }

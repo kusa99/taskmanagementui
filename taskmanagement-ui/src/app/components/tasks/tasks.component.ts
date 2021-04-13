@@ -27,7 +27,6 @@ export class TasksComponent implements OnInit {
   end_date: string;
   priority: string;
   status: string;
-  len: number;
 
   constructor(private dialog: MatDialog, private taskService: TaskService) {}
 
@@ -52,7 +51,7 @@ export class TasksComponent implements OnInit {
         t1.assignmentId < t2.assignmentId ? 1 : -1
       );
     });
-    this.getTasksLength();
+   
     this.taskService.getStatus().subscribe((statusi) => {
       this.statusi = statusi;
     });
@@ -97,7 +96,6 @@ export class TasksComponent implements OnInit {
       if (result) {
         dialogRef.close();
         this.taskService.addTask(itask).subscribe(() => {
-          this.getTasksLength();
           this.taskService.getTasks().subscribe((tasks) => {
             this.tasks = tasks.sort((t1, t2) =>
               t1.assignmentId < t2.assignmentId ? 1 : -1
@@ -126,11 +124,6 @@ export class TasksComponent implements OnInit {
   deleteTask(task: Task) {
     this.tasks = this.tasks.filter((t) => t.assignmentId !== task.assignmentId);
     this.taskService.deleteTask(task).subscribe();
-  }
-  getTasksLength(): void {
-    this.taskService.getTasks().subscribe((tasks) => {
-      this.len = tasks.length;
-    });
   }
 
   editTask(task: Task) {

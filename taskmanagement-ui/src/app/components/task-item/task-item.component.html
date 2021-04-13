@@ -4,13 +4,7 @@
       <!--
             STATUS
         -->
-      <!-- <div
-        *ngIf="
-          task.statusAssignment.statusId == 1;
-          then thenStatus;
-          else elseStatus
-        "
-      ></div> -->
+     
       <ng-template [ngIf]="task.statusAssignment.statusId === 1">
         <div class="tooltip">
           <div class="check-item">

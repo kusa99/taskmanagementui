@@ -35,9 +35,9 @@ export class TaskService {
 
   tasksUrl: string = 'https://localhost:44371/api/Assignments';
   taskUrlPost: string = 'https://localhost:44371/api/Assignments/NewAssignment';
-  statusesGetUrl: string = 'https://localhost:44371/api/Statuses';
+  taskUrlStatus: string = 'https://localhost:44371/api/Statuses';
   taskDeleteUrl: string =
-    'https://localhost:44371/api/Assignments/DeleteAssignment';
+    'https://localhost:44371/api/Assignments/DeleteAssignment/{id}';
 
   getTasks(): Observable<Task[]> {
     return this.http.get<Task[]>(`${this.tasksUrl}`);
@@ -89,6 +89,6 @@ export class TaskService {
   }
 
   getStatus(): Observable<Status[]> {
-    return this.http.get<Status[]>(this.statusesGetUrl);
+    return this.http.get<Status[]>(this.taskUrlStatus);
   }
 }

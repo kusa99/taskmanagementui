@@ -78,7 +78,7 @@ export class AddTaskComponent implements OnInit {
     this.successAlertBox();
   }
   successAlertBox() {
-    Swal.fire('Whooa!', 'Order has been proceeded!', 'success', )
+    Swal.fire('Whooa!', 'Task successfully added!', 'success', )
 }
   
 }

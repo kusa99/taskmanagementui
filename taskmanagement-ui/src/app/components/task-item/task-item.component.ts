@@ -13,7 +13,7 @@ export class TaskItemComponent implements OnInit {
   @Input() task: Task;
   constructor(private taskService: TaskService) {}
   @Output() deleteTask: EventEmitter<Task> = new EventEmitter();
-  @Output() editTask: EventEmitter<Task> = new EventEmitter();
+  // @Output() editTask: EventEmitter<Task> = new EventEmitter();
   @Output() updateTask: EventEmitter<Task> = new EventEmitter();
 
   ngOnInit(): void {}
@@ -28,10 +28,10 @@ export class TaskItemComponent implements OnInit {
     this.deleteTask.emit(task);
   }
 
-  onEdit(task){
-    this.editTask.emit(task);
+  // onEdit(task){
+  //   this.editTask.emit(task);
 
-  };
+  // };
 
   
 }

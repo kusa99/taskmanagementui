@@ -3,7 +3,6 @@ import { Component, OnInit, Input, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { Task } from 'src/app/models/Task';
 import { TaskService } from '../../services/task.service';
-
 @Component({
   selector: 'app-task-item',
   templateUrl: './task-item.component.html',

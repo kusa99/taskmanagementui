@@ -20,7 +20,8 @@
     </mat-form-field>
 
     <div class="controles-container">
-      <mat-form-field appearance="fill">
+      <div class="date-div">
+      <mat-form-field appearance="fill" class="date">
         <mat-label>Choose start date</mat-label>
         <input
           matInput
@@ -36,7 +37,7 @@
         <mat-datepicker #picker1></mat-datepicker>
       </mat-form-field>
 
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" class="date">
         <mat-label>Choose end date</mat-label>
         <input
           matInput
@@ -51,6 +52,7 @@
         ></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
       </mat-form-field>
+    </div>
       <div class="priority">
         <mat-radio-group [(ngModel)]="data.assignmentPriorityId">
           <h3>Priority</h3>
@@ -72,7 +74,7 @@
       <div class="description">
         <h3>Description</h3>
         <mat-form-field appearance="fill">
-          <mat-label>Textarea</mat-label>
+          <mat-label>Description</mat-label>
           <textarea
             matInput
             [(ngModel)]="data.assignmentDescription"

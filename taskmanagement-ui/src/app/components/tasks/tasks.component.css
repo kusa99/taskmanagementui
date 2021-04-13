@@ -6,7 +6,7 @@
 }
 .tasks-items{
   
-  
+  box-shadow: 5px 5px 10px rgba(0, 26, 0, 0.75);
   padding: 5px 20px;
   padding-bottom: 30px;
   margin-top: 30px;

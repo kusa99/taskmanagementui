@@ -3,12 +3,39 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 2rem;
-  border: 1.5px solid rgb(15, 184, 91);
+  border: 2px solid rgb(118, 119, 119);
   border-radius: 10px;
   box-shadow: 5px 5px 10px rgba(0, 26, 0, 0.75);
   height: 3rem;
+  transition: .5s ease;
   
 }
+.card:hover{
+  transition: .9s ease;
+  
+  animation: bounce 0.5s ease;
+  background-color: rgba(202, 55, 62, 0.192);
+}
+
+
+@keyframes bounce {
+  0% {
+    transform: translateY(-1.5px);
+  }
+  25%{
+    transform: translateY(-1px);
+  }
+  50%{
+    transform: translateY(-1.5px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+
+
+
 
 .img-status {
   max-width: 30px;
@@ -28,10 +55,10 @@
   align-items: center;
 }
 .priority {
-  width: 25%;
+  width: 15%;
   text-align: center;
   background-color: yellow;
-  border-radius: 10px;
+  border-radius: 7px;
   height: 2rem;
   display: flex;
   align-items: center;
@@ -43,12 +70,15 @@
 .priority-low {
   background-color: rgb(61, 202, 72);
   color: white;
+  opacity: .8;
 }
 .priority-high {
   background-color: rgb(253, 63, 63);
+  opacity: .8;
 }
 .priority-medium {
   background-color: rgb(235, 177, 71);
+  opacity: .8;
 }
 .title {
   margin: 0 !important;
@@ -197,10 +227,13 @@ img:hover {
 
   font-size: 18px;
 
-  border-bottom: 1px solid #f2f3f5;
 }
 .check-item.completed {
   color: #aaa;
+}
+.check-item:hover{
+  transition: .7s ease;
+  transform: scale(1.2);
 }
 
 .x {
@@ -231,6 +264,8 @@ img:hover {
 
 .check-item:hover .x {
   background: #eee;
+  
+  
 }
 .check-item:hover .x .material-icons {
   opacity: 0.28;

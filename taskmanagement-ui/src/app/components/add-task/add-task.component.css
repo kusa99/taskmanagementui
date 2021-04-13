@@ -1,12 +1,18 @@
 .priority {
-  padding: 5px;
+  display: flex;
+  justify-content:center;
+ 
+  width: 100%;
 }
 .priority h3 {
   display: flex;
   justify-content: center;
 }
 .status {
+  display: flex;
+  justify-content: center;
   padding: 5px;
+  width: 100%;
 }
 .status h3 {
   display: flex;
@@ -18,6 +24,17 @@ mat-radio-group mat-radio-button {
 .radio-medium {
   background-color: green;
 }
+
+.date-div{
+  display:flex;
+  justify-content: space-around;
+  align-items: center;
+
+}
+.date{
+  width: 30%;
+}
+
 .inputs {
   display: grid;
   justify-content: center;

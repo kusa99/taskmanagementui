@@ -5,6 +5,7 @@ import { Task } from 'src/app/models/Task';
 import { User } from '../../models/User';
 import { TaskService } from '../../services/task.service';
 import { UserService } from '../../services/user.service';
+import Swal from 'sweetalert2';
 
 export interface ITask {
   assignmentDescription: string;
@@ -48,7 +49,9 @@ export class AddTaskComponent implements OnInit {
   }
 
   onAdd(result: any): void {
+    
     if (result.assignmentTitle === undefined) {
+     
       console.log('add');
 
       return;
@@ -65,10 +68,17 @@ export class AddTaskComponent implements OnInit {
     };
     console.log(task);
     if (result) {
+      
       this.dialogRef.close();
       this.taskService.addTask(task).subscribe((task) => {
         this.tasks.push(task);
       });
+      
     }
+    this.successAlertBox();
   }
+  successAlertBox() {
+    Swal.fire('Whooa!', 'Order has been proceeded!', 'success', )
+}
+  
 }

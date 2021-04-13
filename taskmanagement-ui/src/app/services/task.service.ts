@@ -13,7 +13,7 @@ const httpOptions = {
   }),
 };
 
-export interface Itask {
+export interface ITaskPut {
   assignmentDescription: string;
   assignmentTitle: string;
   assignmentPriorityId: number;
@@ -46,7 +46,7 @@ export class TaskService {
 
   toggleCompleted(task: Task): Observable<any> {
     const url = `${this.taskUpdateUrl}/${task.assignmentId}`;
-    const itask: Itask = {
+    const itask: ITaskPut = {
       assignmentDescription: task.assignmentDescription,
       assignmentEndDate: task.assignmentEndDate,
       assignmentPhotoAttach: task.assignmentPhotoAttach,

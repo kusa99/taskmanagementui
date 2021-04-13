@@ -14,22 +14,12 @@ export class TaskItemComponent implements OnInit {
   constructor(private taskService: TaskService) {}
   @Output() deleteTask: EventEmitter<Task> = new EventEmitter();
   @Output() editTask: EventEmitter<Task> = new EventEmitter();
+  @Output() updateTask: EventEmitter<Task> = new EventEmitter();
 
   ngOnInit(): void {}
 
-  onToggle(task: Task) {
-    //Toggle in UI
-    if (task.statusAssignment.statusId === 1) {
-      task.statusAssignment.statusId = 2;
-    } else if (task.statusAssignment.statusId == 2) {
-      task.statusAssignment.statusId = 3;
-    } else if (task.statusAssignment.statusId == 3) {
-      task.statusAssignment.statusId = 1;
-    }
-    //Toggle on server
-    this.taskService
-      .toggleCompleted(task)
-      .subscribe((task) => console.log(task));
+  onToggle(task) {
+    this.updateTask.emit(task);
   }
 
   onCreate() {}

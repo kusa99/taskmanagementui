@@ -14,25 +14,31 @@ export class TasksComponent implements OnInit {
   tasks: Task[];
   limit: number = 15;
   searchKey: string;
-  statusi : Status[];
+  statusi: Status[];
+  sortid: number;
+
+  name: string;
+  description: string;
+  assigned: string;
+  start_date: string;
+  end_date: string;
+  priority: string;
+  status: string;
 
   constructor(private dialog: MatDialog, private taskService: TaskService) {}
-  getSelectedStatus(event){
 
-    if(event==0){ this.taskService.getTasks(this.limit).subscribe((tasks) => {
-      this.tasks = tasks.sort((t1, t2) =>
-      t1.assignmentId < t2.assignmentId ? 1 : -1
-    );
-    
-    });
-  }
-  else{
-    this.taskService.getTasks(this.limit).subscribe((tasks) => {
-      this.tasks = tasks.filter((t) =>
-        t.statusAssignment.statusId === event
-      );
-    
-    });
+   getSelectedStatus(event) {
+    this.sortid = event;
+    if (event == 0) {
+       this.taskService.getTasks(this.limit).subscribe((tasks) => {
+        this.tasks = tasks.sort((t1, t2) =>
+          t1.assignmentId < t2.assignmentId ? 1 : -1
+        );
+      });
+    } else {
+      ( this.taskService.getTasks(this.limit)).subscribe((tasks) => {
+        this.tasks = tasks.filter((t) => t.statusAssignment.statusId === event);
+      });
     }
   }
   ngOnInit(): void {
@@ -43,17 +49,11 @@ export class TasksComponent implements OnInit {
       console.log(tasks);
     });
 
-    this.taskService.getStatus().subscribe((statusi)=>{
+    this.taskService.getStatus().subscribe((statusi) => {
       this.statusi = statusi;
     });
+    this.sortid = 0;
   }
-  name: string;
-  description: string;
-  assigned: string;
-  start_date: string;
-  end_date: string;
-  priority: string;
-  status: string;
 
   openDialog() {
     const dialogConfig = new MatDialogConfig();
@@ -104,6 +104,28 @@ export class TasksComponent implements OnInit {
     });
   }
 
+  updateTask(task: Task) {
+    //Toggle in UI
+    if (task.statusAssignment.statusId === 1) {
+      task.statusAssignment.statusId = 2;
+    } else if (task.statusAssignment.statusId == 2) {
+      task.statusAssignment.statusId = 3;
+    } else if (task.statusAssignment.statusId == 3) {
+      task.statusAssignment.statusId = 1;
+    }
+
+    //Toggle on server
+    this.taskService
+      .toggleCompleted(task)
+      .subscribe((task) => console.log(task));
+
+    if (this.sortid != 0) {
+      this.tasks = this.tasks.filter(
+        (t) => t.statusAssignment.statusId === this.sortid
+      );
+    }
+  }
+
   onSearchClear() {
     this.searchKey = '';
     this.applyFilter();
@@ -122,6 +144,4 @@ export class TasksComponent implements OnInit {
           ))
       );
   }
-
-  
 }

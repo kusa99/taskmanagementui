@@ -24,34 +24,37 @@ export class TasksComponent implements OnInit {
   end_date: string;
   priority: string;
   status: string;
+  len: number;
 
   constructor(private dialog: MatDialog, private taskService: TaskService) {}
 
   getSelectedStatus(event) {
     this.sortid = event;
     if (event == 0) {
-      this.taskService.getTasks(this.limit).subscribe((tasks) => {
+      this.taskService.getTasks().subscribe((tasks) => {
         this.tasks = tasks.sort((t1, t2) =>
           t1.assignmentId < t2.assignmentId ? 1 : -1
         );
       });
     } else {
-      this.taskService.getTasks(this.limit).subscribe((tasks) => {
+      this.taskService.getTasks().subscribe((tasks) => {
         this.tasks = tasks.filter((t) => t.statusAssignment.statusId === event);
       });
     }
   }
 
   ngOnInit(): void {
-    this.taskService.getTasks(this.limit).subscribe((tasks) => {
+    this.taskService.getTasks().subscribe((tasks) => {
       this.tasks = tasks.sort((t1, t2) =>
         t1.assignmentId < t2.assignmentId ? 1 : -1
       );
     });
+    this.getTasksLength();
     this.taskService.getStatus().subscribe((statusi) => {
       this.statusi = statusi;
     });
     this.sortid = 0;
+    console.log('duzina ' + this.len);
   }
 
   openDialog() {
@@ -88,9 +91,8 @@ export class TasksComponent implements OnInit {
         assignmentStatusId: result.assignmentStatusId,
         assignmentPriorityId: result.assignmentPriorityId,
         assignmentUserId: result.assignmentUserId,
-        assignmentPhotoAttach: "",
+        assignmentPhotoAttach: '',
       };
-      console.log(itask);
       // let task: Task = {
       //   assignmentDescription: result?.assignmentDescription,
       //   assignmentTitle: result.assignmentTitle,
@@ -106,10 +108,15 @@ export class TasksComponent implements OnInit {
       // this.tasks.push(task);
       if (result) {
         dialogRef.close();
-        this.taskService.addTask(itask).subscribe((task) => {
-          console.log('task');
-          console.log(task);
-          this.tasks.push(task);
+        this.taskService.addTask(itask).subscribe(() => {
+          this.getTasksLength();
+          this.taskService.getTaskById(this.len).subscribe((t) => {
+            this.taskService.getTasks().subscribe((tasks) => {
+              this.tasks = tasks.sort((t1, t2) =>
+                t1.assignmentId < t2.assignmentId ? 1 : -1
+              );
+            });
+          });
         });
       }
     });
@@ -124,8 +131,14 @@ export class TasksComponent implements OnInit {
     this.tasks = this.tasks.filter((t) => t.assignmentId !== task.assignmentId);
     this.taskService.deleteTask(task).subscribe();
   }
+  getTasksLength(): void {
+    this.taskService.getTasks().subscribe((tasks) => {
+      this.len = tasks.length;
+      console.log('len ' + this.len);
+    });
+  }
 
-  editTask(task:Task){
+  editTask(task: Task) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -164,7 +177,7 @@ export class TasksComponent implements OnInit {
       );
     }
   }
-  
+
   onSearchClear() {
     this.searchKey = '';
     this.applyFilter();
@@ -179,7 +192,8 @@ export class TasksComponent implements OnInit {
             (
               task?.assignmentTitle?.toLowerCase() +
               task.userAssignment.userFirstName?.toLowerCase() +
-              task.assignmentEndDate?.toLowerCase() + task.priorityAssignment.priorityTitle.toLowerCase()
+              task.assignmentEndDate?.toLowerCase() +
+              task.priorityAssignment.priorityTitle.toLowerCase()
             ).includes(this.searchKey.trim().toLowerCase())
           ))
       );

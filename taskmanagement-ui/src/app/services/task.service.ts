@@ -36,10 +36,12 @@ export class TaskService {
   tasksUrl: string = 'https://localhost:44371/api/Assignments';
   taskUrlPost: string = 'https://localhost:44371/api/Assignments/NewAssignment';
 
-  getTasks(limit: number = 500): Observable<Task[]> {
-    let Limit = limit ?? 5;
-    let taskLimit = `?_limit=${limit}`;
+  getTasks(): Observable<Task[]> {
     return this.http.get<Task[]>(`${this.tasksUrl}`);
+  }
+
+  getTaskById(id:number):Observable<Task>{
+    return this.http.get<Task>(`${this.tasksUrl}/${id}`);
   }
 
   toggleCompleted(task: Task): Observable<any> {

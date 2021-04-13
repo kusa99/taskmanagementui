@@ -39,15 +39,18 @@
     </mat-form-field>
   </div>
 </div>
-<div class="tasks-items">
-  <h4>{{ name }}</h4>
-  <app-task-item
+<div class="tasks-items; else noTasks">
+  <ng-template [ngIf]="tasks">
+    <app-task-item
     *ngFor="let task of tasks"
     [task]="task"
     (deleteTask)="deleteTask($event)"
     (updateTask)="updateTask($event)"
     (editTask)="editTask($event)"
   >
+</app-task-item>
+  </ng-template>
+  <ng-template #noTasks>No tasks to show</ng-template>
+  
 
-  </app-task-item>
 </div>

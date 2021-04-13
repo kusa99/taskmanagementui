@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Task } from '../../models/Task';
-import { AddTaskComponent } from '../add-task/add-task.component';
+import { AddTaskComponent, ITask } from '../add-task/add-task.component';
 import { TaskService } from '../../services/task.service';
 import { Status } from 'src/app/models/Status';
 
@@ -27,16 +27,16 @@ export class TasksComponent implements OnInit {
 
   constructor(private dialog: MatDialog, private taskService: TaskService) {}
 
-   getSelectedStatus(event) {
+  getSelectedStatus(event) {
     this.sortid = event;
     if (event == 0) {
-       this.taskService.getTasks(this.limit).subscribe((tasks) => {
+      this.taskService.getTasks(this.limit).subscribe((tasks) => {
         this.tasks = tasks.sort((t1, t2) =>
           t1.assignmentId < t2.assignmentId ? 1 : -1
         );
       });
     } else {
-      ( this.taskService.getTasks(this.limit)).subscribe((tasks) => {
+      this.taskService.getTasks(this.limit).subscribe((tasks) => {
         this.tasks = tasks.filter((t) => t.statusAssignment.statusId === event);
       });
     }
@@ -46,7 +46,6 @@ export class TasksComponent implements OnInit {
       this.tasks = tasks.sort((t1, t2) =>
         t1.assignmentId < t2.assignmentId ? 1 : -1
       );
-      console.log(tasks);
     });
 
     this.taskService.getStatus().subscribe((statusi) => {
@@ -73,6 +72,46 @@ export class TasksComponent implements OnInit {
         status: this.status,
       },
     });
+    dialogRef.afterClosed().subscribe((result) => {
+      let itask: ITask = {
+        assignmentDescription: result.assignmentDescription,
+        assignmentTitle: result.assignmentTitle,
+        assignmentStartDate: JSON.stringify(result.assignmentStartDate).slice(
+          1,
+          11
+        ),
+        assignmentEndDate: JSON.stringify(result.assignmentEndDate).slice(
+          1,
+          11
+        ),
+        assignmentStatusId: result.assignmentStatusId,
+        assignmentPriorityId: result.assignmentPriorityId,
+        assignmentUserId: result.assignmentUserId,
+        assignmentPhotoAttach: "",
+      };
+      console.log(itask);
+      // let task: Task = {
+      //   assignmentDescription: result?.assignmentDescription,
+      //   assignmentTitle: result.assignmentTitle,
+      //   assignmentStartDate: result.assignmentStartDate,
+      //   assignmentEndDate: result.assignmentEndDate,
+      //   statusAssignment: result.assignmentStatusId,
+      //   priorityAssignment: result.assignmentPriorityId,
+      //   userAssignment: result.assignmentUserId,
+      //   assignmentPhotoAttach: '',
+      //   assignmentId: 0,
+      //   assignmentIsDeleted: false,
+      // };
+      // this.tasks.push(task);
+      if (result) {
+        dialogRef.close();
+        this.taskService.addTask(itask).subscribe((task) => {
+          console.log('task');
+          console.log(task);
+          this.tasks.push(task);
+        });
+      }
+    });
 
     // this.limit += 5;
     // this.taskService.getTasks(this.limit).subscribe((tasks) => {
@@ -84,25 +123,25 @@ export class TasksComponent implements OnInit {
     this.tasks = this.tasks.filter((t) => t.assignmentId !== task.assignmentId);
     this.taskService.deleteTask(task).subscribe();
   }
-  editTask(task:Task){
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = '60%';
-    dialogConfig.data = { name: this.name };
-    const dialogRef = this.dialog.open(AddTaskComponent, {
-      width: '60%',
-      data: {
-        assignmentTitle: task.assignmentTitle,
-        assignmentDescription: task.assignmentDescription,
-        assignmentUserId: task.userAssignment.userId,
-        assignmentStartDate: task.assignmentStartDate,
-        assignmentEndDate: task.assignmentEndDate,
-        assignmentPriorityId: task.priorityAssignment,
-        assignmentStatusId: task.statusAssignment,
-      },
-    });
-  }
+  // editTask(task:Task){
+  //   const dialogConfig = new MatDialogConfig();
+  //   dialogConfig.disableClose = true;
+  //   dialogConfig.autoFocus = true;
+  //   dialogConfig.width = '60%';
+  //   dialogConfig.data = { name: this.name };
+  //   const dialogRef = this.dialog.open(AddTaskComponent, {
+  //     width: '60%',
+  //     data: {
+  //       assignmentTitle: task.assignmentTitle,
+  //       assignmentDescription: task.assignmentDescription,
+  //       assignmentUserId: task.userAssignment.userId,
+  //       assignmentStartDate: task.assignmentStartDate,
+  //       assignmentEndDate: task.assignmentEndDate,
+  //       assignmentPriorityId: task.priorityAssignment,
+  //       assignmentStatusId: task.statusAssignment,
+  //     },
+  //   });
+  // }
 
   updateTask(task: Task) {
     //Toggle in UI

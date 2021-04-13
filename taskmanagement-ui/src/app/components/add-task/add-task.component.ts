@@ -41,7 +41,6 @@ export class AddTaskComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUsers().subscribe((users) => {
       this.users = users;
-      console.log(users);
     });
   }
   close(): void {
@@ -49,36 +48,13 @@ export class AddTaskComponent implements OnInit {
   }
 
   onAdd(result: any): void {
-    
     if (result.assignmentTitle === undefined) {
-     
-      console.log('add');
 
       return;
-    }
-    let task: ITask = {
-      assignmentDescription: result.assignmentDescription,
-      assignmentTitle: result.assignmentTitle,
-      assignmentStartDate: result.assignmentStartDate,
-      assignmentEndDate: result.assignmentEndDate,
-      assignmentStatusId: result.assignmentStatusId,
-      assignmentPriorityId: result.assignmentPriorityId,
-      assignmentUserId: result.assignmentUserId,
-      assignmentPhotoAttach: '',
-    };
-    console.log(task);
-    if (result) {
-      
-      this.dialogRef.close();
-      this.taskService.addTask(task).subscribe((task) => {
-        this.tasks.push(task);
-      });
-      
     }
     this.successAlertBox();
   }
   successAlertBox() {
-    Swal.fire('Whooa!', 'Order has been proceeded!', 'success', )
-}
-  
+    Swal.fire('Whooa!', 'Order has been proceeded!', 'success');
+  }
 }

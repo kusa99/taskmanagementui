@@ -35,8 +35,7 @@ export class TaskService {
   constructor(private http: HttpClient) {}
 
   tasksUrl: string = 'https://localhost:44371/api/Assignments';
-  taskUrlPost: string =
-    'https://localhost:44371/api/Assignments/UpdateAssignment';
+  taskUrlPost: string = 'https://localhost:44371/api/Assignments/NewAssignment';
 
   getTasks(limit: number = 500): Observable<Task[]> {
     let Limit = limit ?? 5;

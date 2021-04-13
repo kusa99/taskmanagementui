@@ -84,6 +84,25 @@ export class TasksComponent implements OnInit {
     this.tasks = this.tasks.filter((t) => t.assignmentId !== task.assignmentId);
     this.taskService.deleteTask(task).subscribe();
   }
+  editTask(task:Task){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '60%';
+    dialogConfig.data = { name: this.name };
+    const dialogRef = this.dialog.open(AddTaskComponent, {
+      width: '60%',
+      data: {
+        assignmentTitle: task.assignmentTitle,
+        assignmentDescription: task.assignmentDescription,
+        assignmentUserId: task.userAssignment.userId,
+        assignmentStartDate: task.assignmentStartDate,
+        assignmentEndDate: task.assignmentEndDate,
+        assignmentPriorityId: task.priorityAssignment,
+        assignmentStatusId: task.statusAssignment,
+      },
+    });
+  }
 
   updateTask(task: Task) {
     //Toggle in UI

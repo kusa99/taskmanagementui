@@ -3,7 +3,6 @@ import { Component, OnInit, Input, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { Task } from 'src/app/models/Task';
 import { TaskService } from '../../services/task.service';
-import Swal from 'sweetalert2';
 @Component({
   selector: 'app-task-item',
   templateUrl: './task-item.component.html',
@@ -13,6 +12,7 @@ export class TaskItemComponent implements OnInit {
   @Input() task: Task;
   constructor(private taskService: TaskService) {}
   @Output() deleteTask: EventEmitter<Task> = new EventEmitter();
+  @Output() editTask: EventEmitter<Task> = new EventEmitter();
   @Output() updateTask: EventEmitter<Task> = new EventEmitter();
 
   ngOnInit(): void {}
@@ -27,7 +27,10 @@ export class TaskItemComponent implements OnInit {
     this.deleteTask.emit(task);
   }
 
-  showSwal() {
-    Swal.fire('The Internet?', 'That thing is still around?', 'question');
-  }
+  onEdit(task){
+    this.editTask.emit(task);
+
+  };
+
+  
 }

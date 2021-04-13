@@ -22,6 +22,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { TaskService } from './services/task.service';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+
 
 @NgModule({
   declarations: [
@@ -51,6 +53,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+  
   ],
   providers: [TaskService],
   bootstrap: [AppComponent],

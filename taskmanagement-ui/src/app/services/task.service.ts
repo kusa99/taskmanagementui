@@ -28,14 +28,14 @@ export interface ITaskPut {
   providedIn: 'root',
 })
 export class TaskService {
-  taskUpdateUrl: string =
-    'https://localhost:44371/api/Assignments/UpdateAssignment';
+  taskUpdateUrl: string = 'https://localhost:44371/api/Assignments/UpdateAssignment';
 
   constructor(private http: HttpClient) {}
 
   tasksUrl: string = 'https://localhost:44371/api/Assignments';
   taskUrlPost: string = 'https://localhost:44371/api/Assignments/NewAssignment';
-
+  taskUrlStatus: string = 'https://localhost:44371/api/Statuses';
+  
   getTasks(): Observable<Task[]> {
     return this.http.get<Task[]>(`${this.tasksUrl}`);
   }
@@ -61,7 +61,6 @@ export class TaskService {
   }
 
   addTask(task: ITask): Observable<any> {
-    console.log('Dodano');
     return this.http.post(this.taskUrlPost, task, httpOptions);
   }
 
@@ -71,6 +70,6 @@ export class TaskService {
   }
 
   getStatus(): Observable<Status[]> {
-    return this.http.get<Status[]>('https://localhost:44371/api/Statuses');
+    return this.http.get<Status[]>(this.taskUrlStatus);
   }
 }

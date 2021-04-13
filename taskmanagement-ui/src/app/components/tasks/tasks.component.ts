@@ -24,7 +24,7 @@ export class TasksComponent implements OnInit {
   end_date: string;
   priority: string;
   status: string;
-  len: number;
+  tasksLength: number;
 
   constructor(private dialog: MatDialog, private taskService: TaskService) {}
 
@@ -54,7 +54,7 @@ export class TasksComponent implements OnInit {
       this.statusi = statusi;
     });
     this.sortid = 0;
-    console.log('duzina ' + this.len);
+    
   }
 
   openDialog() {
@@ -93,24 +93,12 @@ export class TasksComponent implements OnInit {
         assignmentUserId: result.assignmentUserId,
         assignmentPhotoAttach: '',
       };
-      // let task: Task = {
-      //   assignmentDescription: result?.assignmentDescription,
-      //   assignmentTitle: result.assignmentTitle,
-      //   assignmentStartDate: result.assignmentStartDate,
-      //   assignmentEndDate: result.assignmentEndDate,
-      //   statusAssignment: result.assignmentStatusId,
-      //   priorityAssignment: result.assignmentPriorityId,
-      //   userAssignment: result.assignmentUserId,
-      //   assignmentPhotoAttach: '',
-      //   assignmentId: 0,
-      //   assignmentIsDeleted: false,
-      // };
-      // this.tasks.push(task);
+      
       if (result) {
         dialogRef.close();
         this.taskService.addTask(itask).subscribe(() => {
           this.getTasksLength();
-          this.taskService.getTaskById(this.len).subscribe((t) => {
+          this.taskService.getTaskById(this.tasksLength).subscribe((t) => {
             this.taskService.getTasks().subscribe((tasks) => {
               this.tasks = tasks.sort((t1, t2) =>
                 t1.assignmentId < t2.assignmentId ? 1 : -1
@@ -120,21 +108,18 @@ export class TasksComponent implements OnInit {
         });
       }
     });
-    // this.limit += 5;
-    // this.taskService.getTasks(this.limit).subscribe((tasks) => {
-    //   this.tasks = tasks;
-    // });
-    // console.log(this.tasks);
+
   }
 
   deleteTask(task: Task) {
     this.tasks = this.tasks.filter((t) => t.assignmentId !== task.assignmentId);
     this.taskService.deleteTask(task).subscribe();
   }
+  
   getTasksLength(): void {
     this.taskService.getTasks().subscribe((tasks) => {
-      this.len = tasks.length;
-      console.log('len ' + this.len);
+      this.tasksLength = tasks.length;
+     
     });
   }
 

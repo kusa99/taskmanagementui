@@ -29,6 +29,7 @@ export class TaskItemComponent implements OnInit {
 
   };
   onDelete(task){
+    
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -37,10 +38,11 @@ export class TaskItemComponent implements OnInit {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!'
+    
     }).then((result) => {
+
       if (result.isConfirmed) {
         Swal.fire(
-          
           'Deleted!',
           'Your task has been deleted.',
           'success'

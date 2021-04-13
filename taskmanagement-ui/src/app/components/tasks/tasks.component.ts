@@ -178,7 +178,7 @@ export class TasksComponent implements OnInit {
             (
               task?.assignmentTitle?.toLowerCase() +
               task.userAssignment.userFirstName?.toLowerCase() +
-              task.assignmentEndDate?.toLowerCase()
+              task.assignmentEndDate?.toLowerCase() + task.priorityAssignment.priorityTitle.toLowerCase()
             ).includes(this.searchKey.trim().toLowerCase())
           ))
       );

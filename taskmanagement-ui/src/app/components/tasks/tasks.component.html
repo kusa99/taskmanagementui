@@ -50,7 +50,7 @@
     >
     </app-task-item>
   </ng-template>
-  <ng-template [ngIf]="tasks.length == 0" #noTasks>
+  <ng-template [ngIf]="tasks?.length == 0" #noTasks>
     <div class="noTasks">
       <p>No tasks to show</p>
     </div>

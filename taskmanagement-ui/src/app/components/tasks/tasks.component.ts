@@ -4,6 +4,8 @@ import { Task } from '../../models/Task';
 import { AddTaskComponent, ITask } from '../add-task/add-task.component';
 import { TaskService } from '../../services/task.service';
 import { Status } from 'src/app/models/Status';
+import { User } from 'src/app/models/User';
+import { Priority } from 'src/app/models/Priority';
 
 @Component({
   selector: 'app-tasks',
@@ -16,6 +18,7 @@ export class TasksComponent implements OnInit {
   searchKey: string;
   statusi: Status[];
   sortid: number;
+  isAddForm: boolean = true;
 
   name: string;
   description: string;
@@ -54,7 +57,6 @@ export class TasksComponent implements OnInit {
       this.statusi = statusi;
     });
     this.sortid = 0;
-    console.log('duzina ' + this.len);
   }
 
   openDialog() {
@@ -73,58 +75,39 @@ export class TasksComponent implements OnInit {
         end_date: this.end_date,
         priority: this.priority,
         status: this.status,
+        isAddForm: false,
       },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       let itask: ITask = {
-        assignmentDescription: result.assignmentDescription,
-        assignmentTitle: result.assignmentTitle,
-        assignmentStartDate: JSON.stringify(result.assignmentStartDate).slice(
+        assignmentDescription: result?.assignmentDescription,
+        assignmentTitle: result?.assignmentTitle,
+        assignmentStartDate: JSON.stringify(result?.assignmentStartDate)?.slice(
           1,
           11
         ),
-        assignmentEndDate: JSON.stringify(result.assignmentEndDate).slice(
+        assignmentEndDate: JSON.stringify(result?.assignmentEndDate)?.slice(
           1,
           11
         ),
-        assignmentStatusId: result.assignmentStatusId,
-        assignmentPriorityId: result.assignmentPriorityId,
-        assignmentUserId: result.assignmentUserId,
+        assignmentStatusId: result?.assignmentStatusId,
+        assignmentPriorityId: result?.assignmentPriorityId,
+        assignmentUserId: result?.assignmentUserId,
         assignmentPhotoAttach: '',
       };
-      // let task: Task = {
-      //   assignmentDescription: result?.assignmentDescription,
-      //   assignmentTitle: result.assignmentTitle,
-      //   assignmentStartDate: result.assignmentStartDate,
-      //   assignmentEndDate: result.assignmentEndDate,
-      //   statusAssignment: result.assignmentStatusId,
-      //   priorityAssignment: result.assignmentPriorityId,
-      //   userAssignment: result.assignmentUserId,
-      //   assignmentPhotoAttach: '',
-      //   assignmentId: 0,
-      //   assignmentIsDeleted: false,
-      // };
-      // this.tasks.push(task);
       if (result) {
         dialogRef.close();
         this.taskService.addTask(itask).subscribe(() => {
           this.getTasksLength();
-          this.taskService.getTaskById(this.len).subscribe((t) => {
-            this.taskService.getTasks().subscribe((tasks) => {
-              this.tasks = tasks.sort((t1, t2) =>
-                t1.assignmentId < t2.assignmentId ? 1 : -1
-              );
-            });
+          this.taskService.getTasks().subscribe((tasks) => {
+            this.tasks = tasks.sort((t1, t2) =>
+              t1.assignmentId < t2.assignmentId ? 1 : -1
+            );
           });
         });
       }
     });
-    // this.limit += 5;
-    // this.taskService.getTasks(this.limit).subscribe((tasks) => {
-    //   this.tasks = tasks;
-    // });
-    // console.log(this.tasks);
   }
 
   deleteTask(task: Task) {
@@ -134,11 +117,11 @@ export class TasksComponent implements OnInit {
   getTasksLength(): void {
     this.taskService.getTasks().subscribe((tasks) => {
       this.len = tasks.length;
-      console.log('len ' + this.len);
     });
   }
 
   editTask(task: Task) {
+    this.isAddForm = false;
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -154,7 +137,40 @@ export class TasksComponent implements OnInit {
         assignmentEndDate: task.assignmentEndDate,
         assignmentPriorityId: task.priorityAssignment,
         assignmentStatusId: task.statusAssignment,
+        AssignmentId: task.assignmentId,
       },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      let task: Task = {
+        assignmentDescription: result?.assignmentDescription,
+        assignmentTitle: result?.assignmentTitle,
+        assignmentStartDate: JSON.stringify(result?.assignmentStartDate)?.slice(
+          1,
+          11
+        ),
+        assignmentEndDate: JSON.stringify(result?.assignmentEndDate)?.slice(
+          1,
+          11
+        ),
+        statusAssignment: new Status(result?.assignmentStatusId),
+        priorityAssignment: new Priority(result?.assignmentPriorityId),
+        userAssignment: new User(result?.assignmentUserId),
+        assignmentPhotoAttach: '',
+        assignmentId: result?.AssignmentId,
+        assignmentIsDeleted: false,
+      };
+
+      if (result) {
+        dialogRef.close();
+        this.taskService.updateTask(task).subscribe(() => {
+          this.taskService.getTasks().subscribe((tasks) => {
+            this.tasks = tasks.sort((t1, t2) =>
+              t1.assignmentId < t2.assignmentId ? 1 : -1
+            );
+          });
+        });
+      }
     });
   }
 
@@ -168,9 +184,7 @@ export class TasksComponent implements OnInit {
       task.statusAssignment.statusId = 1;
     }
     //Toggle on server
-    this.taskService
-      .toggleCompleted(task)
-      .subscribe((task) => console.log(task));
+    this.taskService.updateTask(task).subscribe();
     if (this.sortid != 0) {
       this.tasks = this.tasks.filter(
         (t) => t.statusAssignment.statusId === this.sortid

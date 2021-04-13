@@ -1,4 +1,7 @@
-<mat-grid-list cols="1" rowHeight="600px">
+<div style="position: relative" mat-dialog-content>
+  <!-- 
+      Task name 
+  -->
   <mat-form-field appearance="fill">
     <mat-label>Task name</mat-label>
     <input
@@ -8,6 +11,10 @@
       placeholder="Write a task name"
     />
   </mat-form-field>
+
+  <!-- 
+        Assign to dropdown 
+    -->
 
   <div class="inputs">
     <mat-form-field appearance="fill">
@@ -19,8 +26,15 @@
       </mat-select>
     </mat-form-field>
 
+    <!-- 
+            Dates 
+        -->
+
     <div class="controles-container">
       <div class="date-div">
+        <!-- 
+            Start date 
+        -->
         <mat-form-field appearance="fill" class="date">
           <mat-label>Choose start date</mat-label>
           <input
@@ -37,6 +51,9 @@
           <mat-datepicker #picker1></mat-datepicker>
         </mat-form-field>
 
+        <!-- 
+            End date 
+        -->
         <mat-form-field appearance="fill" class="date">
           <mat-label>Choose end date</mat-label>
           <input
@@ -53,6 +70,9 @@
           <mat-datepicker #picker2></mat-datepicker>
         </mat-form-field>
       </div>
+      <!-- 
+        Priority radio buttons
+      -->
       <div class="priority">
         <mat-radio-group [(ngModel)]="data.assignmentPriorityId">
           <h3>Priority</h3>
@@ -61,6 +81,11 @@
           <mat-radio-button value="3" color="warn">Low</mat-radio-button>
         </mat-radio-group>
       </div>
+
+      <!-- 
+        Status radio buttons
+      -->
+
       <div class="status">
         <mat-radio-group [(ngModel)]="data.assignmentStatusId">
           <h3>Status</h3>
@@ -71,6 +96,11 @@
           <mat-radio-button value="3" color="warn">Done</mat-radio-button>
         </mat-radio-group>
       </div>
+
+      <!-- 
+        Description
+      -->
+
       <div class="description">
         <h3>Description</h3>
         <mat-form-field appearance="fill">
@@ -83,19 +113,35 @@
       </div>
     </div>
 
+    <!-- 
+        Buttons
+      -->
     <div mat-dialog-actions>
-      <button class="mat-raised-button" (click)="close()" mat-dialog-closegi>
+      <button class="mat-raised-button" (click)="close()" mat-dialog-close>
         Close
       </button>
-      <button
-        (click)="onAdd(data)"
-        [mat-dialog-close]="data"
-        class="submit"
-        mat-raised-button
-        color="primary"
-      >
-        Submit
-      </button>
+      <ng-template [ngIf]="data.assignmentStatusId === undefined">
+        <button
+          (click)="onAdd(data)"
+          [mat-dialog-close]="data"
+          class="submit"
+          mat-raised-button
+          color="primary"
+        >
+          Submit
+        </button>
+      </ng-template>
+      <ng-template [ngIf]="data.assignmentStatusId !== undefined">
+        <button
+          (click)="onEdit(data)"
+          [mat-dialog-close]="data"
+          class="submit"
+          mat-raised-button
+          color="primary"
+        >
+          Edit
+        </button>
+      </ng-template>
     </div>
   </div>
-</mat-grid-list>
+</div>

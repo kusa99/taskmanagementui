@@ -42,18 +42,13 @@
 <div class="tasks-items">
   <ng-template [ngIf]="tasks">
     <app-task-item
-      *ngFor="let task of tasks"
-      [task]="task"
-      (deleteTask)="deleteTask($event)"
-      (updateTask)="updateTask($event)"
-      (editTask)="editTask($event)"
-    >
-    </app-task-item>
-  </ng-template>
-  <ng-template [ngIf]="tasks.length == 0" #noTasks>
-    <div class="noTasks">
-      <p>No tasks to show</p>
-    </div>
+    *ngFor="let task of tasks"
+    [task]="task"
+    (deleteTask)="deleteTask($event)"
+    (updateTask)="updateTask($event)"
+    (editTask)="editTask($event)"
+  >
+</app-task-item>
   </ng-template>
   <ng-template [ngIf]="tasks.length == 0" #noTasks>
     <div class="noTasks">

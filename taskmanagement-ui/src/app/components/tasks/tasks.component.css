@@ -4,6 +4,13 @@
 .btn-add{
   background: green;
 }
+.noTasks h1{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  padding: 30px;
+}
 .tasks-items{
   
   box-shadow: 5px 5px 10px rgba(0, 26, 0, 0.75);

@@ -21,38 +21,38 @@
 
     <div class="controles-container">
       <div class="date-div">
-      <mat-form-field appearance="fill" class="date">
-        <mat-label>Choose start date</mat-label>
-        <input
-          matInput
-          [(ngModel)]="data.assignmentStartDate"
-          [matDatepicker]="picker1"
-          min="{{ todaysDate }}"
-          [formControl]="startDate"
-        />
-        <mat-datepicker-toggle
-          matSuffix
-          [for]="picker1"
-        ></mat-datepicker-toggle>
-        <mat-datepicker #picker1></mat-datepicker>
-      </mat-form-field>
+        <mat-form-field appearance="fill" class="date">
+          <mat-label>Choose start date</mat-label>
+          <input
+            matInput
+            [(ngModel)]="data.assignmentStartDate"
+            [matDatepicker]="picker1"
+            min="{{ todaysDate }}"
+            [formControl]="startDate"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker1"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
 
-      <mat-form-field appearance="fill" class="date">
-        <mat-label>Choose end date</mat-label>
-        <input
-          matInput
-          [(ngModel)]="data.assignmentEndDate"
-          [matDatepicker]="picker2"
-          [formControl]="endDate"
-          [min]="startDate.value"
-        />
-        <mat-datepicker-toggle
-          matSuffix
-          [for]="picker2"
-        ></mat-datepicker-toggle>
-        <mat-datepicker #picker2></mat-datepicker>
-      </mat-form-field>
-    </div>
+        <mat-form-field appearance="fill" class="date">
+          <mat-label>Choose end date</mat-label>
+          <input
+            matInput
+            [(ngModel)]="data.assignmentEndDate"
+            [matDatepicker]="picker2"
+            [formControl]="endDate"
+            [min]="startDate.value"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker2"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div>
       <div class="priority">
         <mat-radio-group [(ngModel)]="data.assignmentPriorityId">
           <h3>Priority</h3>
@@ -89,6 +89,7 @@
       </button>
       <button
         (click)="onAdd(data)"
+        [mat-dialog-close]="data"
         class="submit"
         mat-raised-button
         color="primary"

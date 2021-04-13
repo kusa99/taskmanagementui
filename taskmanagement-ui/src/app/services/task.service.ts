@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Task } from '../models/Task';
-
 import { Observable } from 'rxjs';
 import { ITask } from '../components/add-task/add-task.component';
 import { Status } from '../models/Status';
@@ -35,8 +34,7 @@ export class TaskService {
   constructor(private http: HttpClient) {}
 
   tasksUrl: string = 'https://localhost:44371/api/Assignments';
-  taskUrlPost: string =
-    'https://localhost:44371/api/Assignments/UpdateAssignment';
+  taskUrlPost: string = 'https://localhost:44371/api/Assignments/NewAssignment';
 
   getTasks(limit: number = 500): Observable<Task[]> {
     let Limit = limit ?? 5;

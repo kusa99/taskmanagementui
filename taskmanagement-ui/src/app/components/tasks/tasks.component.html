@@ -40,21 +40,14 @@
   </div>
 </div>
 <div class="tasks-items">
-
-
-<!-- <h4>{{ name }}</h4>
-<app-task-item *ngFor="let task of tasks" [task]="task"
-(deleteTask)="deleteTask($event)"
-
-> </app-task-item> -->
   <h4>{{ name }}</h4>
   <app-task-item
     *ngFor="let task of tasks"
     [task]="task"
     (deleteTask)="deleteTask($event)"
     (updateTask)="updateTask($event)"
-    
+    (editTask)="editTask($event)"
   >
-  <!-- (editTask)="editTask($event)" -->
+
   </app-task-item>
 </div>

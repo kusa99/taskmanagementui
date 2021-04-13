@@ -18,12 +18,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { TaskService } from './services/task.service';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
-
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+// import { MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 
 @NgModule({
   declarations: [
@@ -53,9 +53,8 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-  
   ],
-  providers: [TaskService],
+  providers: [TaskService, { provide: MAT_DATE_LOCALE, useValue: 'de-DE' }],
   bootstrap: [AppComponent],
   entryComponents: [AddTaskComponent],
 })

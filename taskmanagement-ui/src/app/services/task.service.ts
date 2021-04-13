@@ -80,7 +80,6 @@ export class TaskService {
   // }
 
   addTask(task: ITask): Observable<any> {
-    console.log('Dodano');
     return this.http.post(this.taskUrlPost, task, httpOptions);
   }
 

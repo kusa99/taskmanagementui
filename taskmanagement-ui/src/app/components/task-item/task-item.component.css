@@ -7,12 +7,11 @@
   border-radius: 10px;
   box-shadow: 5px 5px 10px rgba(0, 26, 0, 0.75);
   height: 3rem;
-  transition: .5s ease;
-  
+  transition: 0.5s ease;
 }
-.card:hover{
-  transition: .9s ease;
-  
+.card:hover {
+  transition: 0.9s ease;
+
   animation: bounce 0.5s ease;
   background-color: rgba(209, 209, 209, 0.356);
 }
@@ -20,18 +19,13 @@
   0% {
     transform: translateY(-1px);
   }
-  25%{
+  25% {
     transform: translateY(-0.5px);
- 
   }
   100% {
     transform: translateY(0px);
   }
 }
-
-
-
-
 
 .img-status {
   max-width: 30px;
@@ -66,15 +60,15 @@
 .priority-low {
   background-color: rgb(61, 202, 72);
   color: white;
-  opacity: .8;
+  opacity: 0.8;
 }
 .priority-high {
   background-color: rgb(253, 63, 63);
-  opacity: .8;
+  opacity: 0.8;
 }
 .priority-medium {
   background-color: rgb(235, 177, 71);
-  opacity: .8;
+  opacity: 0.8;
 }
 .title {
   margin: 0 !important;
@@ -135,14 +129,14 @@
   color: black;
 }
 
- .edit  {
+.edit {
   cursor: pointer;
   display: flex;
   color: rgb(133, 129, 129);
   background: #eee;
   padding: 1px;
   border-radius: 5px;
-  
+  border: none;
 }
 .delete {
   cursor: pointer;
@@ -150,7 +144,7 @@
   color: rgb(133, 129, 129);
   padding: 1px;
   border-radius: 5px;
-  
+  border: none;
 }
 .edit:hover {
   background: rgb(247, 247, 247);
@@ -222,13 +216,12 @@ img:hover {
   cursor: pointer;
 
   font-size: 18px;
-
 }
 .check-item.completed {
   color: #aaa;
 }
-.check-item:hover{
-  transition: .7s ease;
+.check-item:hover {
+  transition: 0.7s ease;
   transform: scale(1.2);
 }
 
@@ -260,8 +253,6 @@ img:hover {
 
 .check-item:hover .x {
   background: #eee;
-  
-  
 }
 .check-item:hover .x .material-icons {
   opacity: 0.28;

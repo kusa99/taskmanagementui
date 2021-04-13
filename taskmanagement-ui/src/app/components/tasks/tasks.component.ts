@@ -61,41 +61,39 @@ export class TasksComponent implements OnInit {
 
   openDialog() {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
+    dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '60%';
-    dialogConfig.data = { name: this.name };
-    const dialogRef = this.dialog.open(AddTaskComponent, {
-      width: '60%',
-      data: {
-        name: this.name,
-        description: this.description,
-        assigned: this.assigned,
-        start_date: this.start_date,
-        end_date: this.end_date,
-        priority: this.priority,
-        status: this.status,
-        isAddForm: false,
-      },
-    });
+    dialogConfig.data = {
+      assignmentTitle: this.name,
+      assignmentDescription: this.description,
+      assignmentUserId: 0,
+      assignmentStartDate: this.start_date,
+      assignmentEndDate: this.end_date,
+      assignmentPriorityId: 0,
+      assignmentStatusId: 0,
+    };
+    console.log(dialogConfig.data);
+    const dialogRef = this.dialog.open(AddTaskComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe((result) => {
       let itask: ITask = {
+        assignmentId: result?.assignmentId,
         assignmentDescription: result?.assignmentDescription,
         assignmentTitle: result?.assignmentTitle,
-        assignmentStartDate: JSON.stringify(result?.assignmentStartDate)?.slice(
-          1,
-          11
-        ),
-        assignmentEndDate: JSON.stringify(result?.assignmentEndDate)?.slice(
-          1,
-          11
-        ),
+        assignmentStartDate: this.formatDate(
+          new Date(Date.parse(result?.assignmentStartDate))
+        ).slice(0, 10),
+        assignmentEndDate: this.formatDate(
+          new Date(Date.parse(result?.assignmentEndDate))
+        ).slice(0, 10),
         assignmentStatusId: result?.assignmentStatusId,
         assignmentPriorityId: result?.assignmentPriorityId,
         assignmentUserId: result?.assignmentUserId,
         assignmentPhotoAttach: '',
       };
+      console.log('itask');
+      console.log(itask);
       if (result) {
         dialogRef.close();
         this.taskService.addTask(itask).subscribe(() => {
@@ -108,6 +106,21 @@ export class TasksComponent implements OnInit {
         });
       }
     });
+  }
+
+  formatDate(myDate: Date): string {
+    let myUtcDate = new Date(
+      Date.UTC(
+        myDate.getFullYear(),
+        myDate.getMonth(),
+        myDate.getDate(),
+        myDate.getHours(),
+        myDate.getMinutes(),
+        myDate.getSeconds()
+      )
+    );
+
+    return myUtcDate.toJSON();
   }
 
   deleteTask(task: Task) {
@@ -123,23 +136,24 @@ export class TasksComponent implements OnInit {
   editTask(task: Task) {
     this.isAddForm = false;
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
+    let statusId: number = task.statusAssignment.statusId;
+    let priorityId: number = task.priorityAssignment.priorityId;
+    console.log('prio ' + priorityId);
+    dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '60%';
-    dialogConfig.data = { name: this.name };
-    const dialogRef = this.dialog.open(AddTaskComponent, {
-      width: '60%',
-      data: {
-        assignmentTitle: task.assignmentTitle,
-        assignmentDescription: task.assignmentDescription,
-        assignmentUserId: task.userAssignment.userId,
-        assignmentStartDate: task.assignmentStartDate,
-        assignmentEndDate: task.assignmentEndDate,
-        assignmentPriorityId: task.priorityAssignment,
-        assignmentStatusId: task.statusAssignment,
-        AssignmentId: task.assignmentId,
-      },
-    });
+    dialogConfig.data = {
+      assignmentTitle: task.assignmentTitle,
+      assignmentDescription: task.assignmentDescription,
+      assignmentUserId: task.userAssignment.userId,
+      assignmentStartDate: task.assignmentStartDate,
+      assignmentEndDate: task.assignmentEndDate,
+      assignmentPriorityId: priorityId,
+      assignmentStatusId: statusId,
+      assignmentId: task.assignmentId,
+    };
+    console.log(dialogConfig.data);
+    const dialogRef = this.dialog.open(AddTaskComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe((result) => {
       let task: Task = {
@@ -206,7 +220,6 @@ export class TasksComponent implements OnInit {
             (
               task?.assignmentTitle?.toLowerCase() +
               task.userAssignment.userFirstName?.toLowerCase() +
-              task.assignmentEndDate?.toLowerCase() +
               task.priorityAssignment.priorityTitle.toLowerCase()
             ).includes(this.searchKey.trim().toLowerCase())
           ))

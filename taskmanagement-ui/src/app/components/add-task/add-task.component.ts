@@ -6,8 +6,10 @@ import { User } from '../../models/User';
 import { TaskService } from '../../services/task.service';
 import { UserService } from '../../services/user.service';
 import Swal from 'sweetalert2';
+import { Status } from 'src/app/models/Status';
 
 export interface ITask {
+  assignmentId: number;
   assignmentDescription: string;
   assignmentTitle: string;
   assignmentPriorityId: number;
@@ -29,6 +31,7 @@ export class AddTaskComponent implements OnInit {
   users: User[];
   tasks: Task[];
   cTask: Task;
+  statuses: Status[];
   todaysDate: string = new Date().toISOString().split('T')[0];
 
   constructor(
@@ -42,6 +45,20 @@ export class AddTaskComponent implements OnInit {
     this.userService.getUsers().subscribe((users) => {
       this.users = users;
     });
+    this.statuses = [
+      {
+        statusId: 1,
+        statusTitle: 'To do',
+      },
+      {
+        statusId: 2,
+        statusTitle: 'In progress',
+      },
+      {
+        statusId: 3,
+        statusTitle: 'Done',
+      },
+    ];
   }
 
   close(): void {

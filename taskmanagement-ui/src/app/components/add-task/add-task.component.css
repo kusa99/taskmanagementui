@@ -1,0 +1,70 @@
+.priority {
+  display: flex;
+  justify-content:center;
+  width: 100%;
+}
+.bg-img{
+  position: absolute;
+  height: 170%;
+  width: 96.8%;
+  opacity: 0.1;
+  z-index: 0;
+}
+.priority h3 {
+  display: flex;
+  justify-content: center;
+}
+.status {
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+  width: 100%;
+}
+.status h3 {
+  display: flex;
+  justify-content: center;
+}
+mat-radio-group mat-radio-button {
+  margin-left: 30px;
+}
+.radio-medium {
+  background-color: green;
+}
+
+.date-div {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.date {
+  width: 30%;
+}
+
+.inputs {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+
+.description h3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.submit {
+  
+  background: rgb(73, 160, 194);;
+}
+
+.description {
+  width: 100%;
+}
+mat-form-field {
+  width: 100%;
+}
+.mat-dialog-actions{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+

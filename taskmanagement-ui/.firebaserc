@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "empirical-envoy-296211": {
+      "hosting": {
+        "taskmanagement-ui": [
+          "empirical-envoy-296211"
+        ]
+      }
+    }
+  }
+}

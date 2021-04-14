@@ -1,1 +1,58 @@
-<app-task-item *ngFor="let task of tasks" [task]="task"> </app-task-item>
+<div class="search-div">
+  <button
+    class="btn-add"
+    mat-raised-button
+    color="primary"
+    (click)="openDialog()"
+  >
+    <mat-icon>add</mat-icon>Add task
+  </button>
+  <div class="status-div">
+    <mat-form-field class="status">
+      <mat-label>Status</mat-label>
+      <mat-select ngModel (ngModelChange)="getSelectedStatus($event)">
+        <mat-option [value]="0">Home</mat-option>
+        <mat-option *ngFor="let status of statusi" [value]="status.statusId">
+          {{ status.statusTitle }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="search-form-field">
+      <input
+        matInput
+        [(ngModel)]="searchKey"
+        placeholder="Search"
+        autocomplete="off"
+        (keyup)="applyFilter()"
+      />
+      <button
+        mat-button
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        *ngIf="searchKey"
+        (click)="onSearchClear()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+</div>
+<div class="tasks-items scroll">
+  <ng-template [ngIf]="tasks">
+    <app-task-item
+      *ngFor="let task of tasks"
+      [task]="task"
+      (deleteTask)="deleteTask($event)"
+      (updateTask)="updateTask($event)"
+      (editTask)="editTask($event)"
+    >
+    </app-task-item>
+  </ng-template>
+  <ng-template [ngIf]="tasks?.length == 0" #noTasks>
+    <div class="noTasks">
+      <h1>No tasks to show!</h1>
+    </div>
+  </ng-template>
+</div>

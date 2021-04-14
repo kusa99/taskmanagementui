@@ -1,40 +1,140 @@
 <mat-card class="card">
-  <mat-card-header>
-    <div *ngIf="task.status; then thenBlock; else elseBlock"></div>
-  </mat-card-header>
-  <mat-card-title class="title">{{ task.name }}</mat-card-title>
+  <div class="card-header">
+    <mat-card-header>
+      <!--
+            STATUS
+        -->
+
+      <ng-template [ngIf]="task.statusAssignment.statusId === 1">
+        <div class="tooltip">
+          <div class="check-item">
+            <div class="x">
+              <span class="material-icons" (click)="onToggle(task)">check</span>
+            </div>
+          </div>
+          <span class="tooltiptext">Switch to In progress</span>
+        </div>
+      </ng-template>
+      <ng-template [ngIf]="task.statusAssignment.statusId === 2">
+        <div class="tooltip">
+          <div class="chect-item">
+            <div class="check-item completed">
+              <div class="x">
+                <span (click)="onToggle(task)" class="material-icons">
+                  rotate_right
+                </span>
+              </div>
+            </div>
+          </div>
+          <span class="tooltiptext">Switch to Done</span>
+        </div>
+      </ng-template>
+      <ng-template [ngIf]="task.statusAssignment.statusId === 3">
+        <div class="tooltip">
+          <div class="check-item completed">
+            <div class="x">
+              <span class="material-icons" (click)="onToggle(task)">check</span>
+            </div>
+          </div>
+          <span class="tooltiptext">Switch to To do</span>
+        </div>
+      </ng-template>
+    </mat-card-header>
+    <!--
+        TITLE
+    -->
+    <mat-card-title class="title">{{ task.assignmentTitle }}</mat-card-title>
+  </div>
   <mat-card-content class="card-body">
+    <!--
+          USER ICON AND NAME
+      -->
     <div class="assigned-user">
-      <img src="../../../assets/img/user-img.png" alt="user icon" />
+      <i class="material-icons">account_circle</i>
       <p class="assigned">
-        {{ task.assigned.slice(0, task.assigned.indexOf(" ")) }}
+        {{ task.userAssignment.userFirstName }}
       </p>
     </div>
+
+    <!--
+        START DATE
+    -->
     <div>
-      <p class="end-date">{{ task.end_date }}</p>
+      <p class="start-date">
+        {{ task.assignmentStartDate.slice(0, 10) }}
+      </p>
     </div>
-    <div class="priority">
-      <p>{{ task.priority }}</p>
+    <!--
+        END DATE
+    -->
+
+    <div>
+      <p class="end-date">{{ task.assignmentEndDate.slice(0, 10) }}</p>
+    </div>
+
+    <!--
+        PRIORITY
+    -->
+
+    <ng-template [ngIf]="task.priorityAssignment.priorityId == 1">
+      <div class="priority priority-high">
+        <p>HIGH</p>
+      </div>
+    </ng-template>
+    <ng-template [ngIf]="task.priorityAssignment.priorityId == 2">
+      <div class="priority priority-medium">
+        <p>MEDIUM</p>
+      </div>
+    </ng-template>
+    <ng-template [ngIf]="task.priorityAssignment.priorityId == 3">
+      <div class="priority priority-low">
+        <p>LOW</p>
+      </div>
+    </ng-template>
+
+    <!--
+        CONTROL BOXES
+    -->
+    <div class="controls-box">
+      <div class="tooltip">
+        <button class="edit" (click)="onEdit(task)">
+          <i class="material-icons">edit</i>
+        </button>
+
+        <span class="tooltiptext">Edit</span>
+      </div>
+      <div class="tooltip">
+        <button class="delete" (click)="onDelete(task)">
+          <i class="material-icons">delete</i>
+        </button>
+        <span class="tooltiptext">Delete</span>
+      </div>
     </div>
   </mat-card-content>
 </mat-card>
 
-<ng-template #thenBlock>
-  <div>
-    <img
-      class="img-status"
-      src="../../../assets/img/check-finished.png"
-      alt=""
-    />
+<!--
+    Icons for status; circle for unfinished, checked circle for finished
+
+    Finshed icon
+-->
+<ng-template #thenStatus>
+  <div class="check-item completed">
+    <div class="x">
+      <span class="material-icons" (click)="onToggle(task)">check</span>
+    </div>
   </div>
 </ng-template>
-<ng-template #elseBlock>
+<!--
+    Not finished icon
+-->
+<ng-template #elseStatus>
   <div class="tooltip">
-    <img
-      class="img-status"
-      src="../../../assets/img/checked unfinished.png"
-      alt=""
-    />
+    <div class="check-item">
+      <div class="x">
+        <span class="material-icons" (click)="onToggle(task)">check</span>
+      </div>
+    </div>
     <span class="tooltiptext">Click to finish</span>
   </div>
 </ng-template>

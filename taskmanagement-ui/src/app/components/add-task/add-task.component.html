@@ -1,0 +1,180 @@
+<div style="position: relative" mat-dialog-content>
+  <!-- 
+      Task name 
+  -->
+  <img src="../assets/img/bg3.jpg" class="bg-img" />
+
+  <mat-form-field appearance="fill">
+    <mat-label>Task name</mat-label>
+    <input
+      matInput
+      required
+      [(ngModel)]="data.assignmentTitle"
+      placeholder="Write a task name"
+    />
+  </mat-form-field>
+
+  <!-- 
+        Assign to dropdown 
+    -->
+
+  <div class="inputs">
+    <mat-form-field appearance="fill">
+      <mat-label>Assign to</mat-label>
+      <mat-select required [(ngModel)]="data.assignmentUserId">
+        <mat-option *ngFor="let user of users" [value]="user.userId">
+          {{ user.userFirstName }} {{ user.userLastName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- 
+            Dates 
+        -->
+
+    <div class="controles-container">
+      <div class="date-div">
+        <!-- 
+            Start date 
+        -->
+        <mat-form-field appearance="fill" class="date">
+          <mat-label>Choose start date</mat-label>
+          <input
+            required
+            matInput
+            [(ngModel)]="data.assignmentStartDate"
+            [matDatepicker]="picker1"
+            min="{{ todaysDate }}"
+            [formControl]="startDate"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker1"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+
+        <!-- 
+            End date 
+        -->
+        <mat-form-field appearance="fill" class="date">
+          <mat-label>Choose end date</mat-label>
+          <input
+            required
+            matInput
+            [(ngModel)]="data.assignmentEndDate"
+            [matDatepicker]="picker2"
+            [formControl]="endDate"
+            [min]="startDate.value"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker2"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <!-- 
+        Priority radio buttons
+      -->
+      <div class="priority">
+        <mat-radio-group [(ngModel)]="data.assignmentPriorityId">
+          <h3>Priority*</h3>
+          <mat-radio-button
+            [checked]="data?.assignmentPriorityId == 1"
+            [value]="1"
+            color="warn"
+            >High</mat-radio-button
+          >
+          <mat-radio-button
+            [checked]="data?.assignmentPriorityId == 2"
+            [value]="2"
+            color="warn"
+            >Medium</mat-radio-button
+          >
+          <mat-radio-button
+            [checked]="data?.assignmentPriorityId == 3"
+            [value]="3"
+            color="warn"
+            >Low</mat-radio-button
+          >
+        </mat-radio-group>
+      </div>
+
+      <!-- 
+        Status radio buttons
+      -->
+
+      <div class="status">
+        <mat-radio-group [(ngModel)]="data.assignmentStatusId">
+          <h3>Status*</h3>
+          <mat-radio-button
+            [checked]="data.assignmentStatusId == 1"
+            [value]="1"
+            color="warn"
+            >To do</mat-radio-button
+          >
+          <mat-radio-button
+            [value]="2"
+            color="warn"
+            [checked]="data.assignmentStatusId == 2"
+            >In Progress</mat-radio-button
+          >
+          <mat-radio-button
+            [checked]="data.assignmentStatusId == 3"
+            [value]="3"
+            color="warn"
+            >Done</mat-radio-button
+          >
+        </mat-radio-group>
+      </div>
+
+      <!-- 
+        Description
+      -->
+
+      <div class="description">
+        <h3>Description</h3>
+        <mat-form-field appearance="fill">
+          <mat-label>Description</mat-label>
+          <textarea
+            required
+            matInput
+            [(ngModel)]="data.assignmentDescription"
+          ></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- 
+        Buttons
+      -->
+    <div class="buttons" mat-dialog-actions>
+      <button class="mat-raised-button" (click)="close()" mat-dialog-close>
+        Close
+      </button>
+      <ng-template [ngIf]="data.assignmentId === undefined">
+        <button
+          (click)="onAdd(data)"
+          [mat-dialog-close]="data"
+          class="submit"
+          mat-raised-button
+          color="primary"
+        >
+          Submit
+        </button>
+      </ng-template>
+      <ng-template [ngIf]="data.assignmentId !== undefined">
+        <button
+          (click)="onEdit(data)"
+          [mat-dialog-close]="data"
+          class="submit"
+          mat-raised-button
+          color="primary"
+        >
+          Edit
+        </button>
+      </ng-template>
+    </div>
+  </div>
+</div>

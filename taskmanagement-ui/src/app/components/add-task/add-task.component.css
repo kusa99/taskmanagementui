@@ -1,8 +1,14 @@
 .priority {
   display: flex;
-  justify-content: center;
-
+  justify-content:center;
   width: 100%;
+}
+.bg-img{
+  position: absolute;
+  height: 170%;
+  width: 96.8%;
+  opacity: 0.1;
+  z-index: 0;
 }
 .priority h3 {
   display: flex;
@@ -46,8 +52,8 @@ mat-radio-group mat-radio-button {
   align-items: center;
 }
 .submit {
-  display: inline-block;
-  margin-left: 300px;
+  
+  background: rgb(73, 160, 194);;
 }
 
 .description {
@@ -56,10 +62,9 @@ mat-radio-group mat-radio-button {
 mat-form-field {
   width: 100%;
 }
-.mat-dialog-actions {
-  margin-bottom: 100px;
-}
-.buttons {
+.mat-dialog-actions{
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
+

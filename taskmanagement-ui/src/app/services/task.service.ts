@@ -5,6 +5,7 @@ import { Task } from '../models/Task';
 import { Observable } from 'rxjs';
 import { ITask } from '../components/add-task/add-task.component';
 import { Status } from '../models/Status';
+import { environment } from 'src/environments/environment';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -31,15 +32,14 @@ export interface ITaskPut {
 export class TaskService {
   taskUpdateUrl: string =
     'https://localhost:44371/api/Assignments/UpdateAssignment';
-  proxyurl: string = 'https://cors-anywhere.herokuapp.com/';
 
   constructor(private http: HttpClient) {}
 
-  tasksUrl: string = 'https://localhost:44371/api/Assignments';
-  taskUrlPost: string = 'https://localhost:44371/api/Assignments/NewAssignment';
-  taskUrlStatus: string = 'https://localhost:44371/api/Statuses';
-  taskDeleteUrl: string =
-    'https://localhost:44371/api/Assignments/DeleteAssignment';
+  baseUrl: string = environment.baseUrl;
+  tasksUrl: string = this.baseUrl + '/Assignments';
+  taskUrlPost: string = this.baseUrl + '/Assignments/NewAssignment';
+  taskUrlStatus: string = this.baseUrl + '/Statuses';
+  taskDeleteUrl: string = this.baseUrl + '/Assignments/DeleteAssignment';
 
   getTasks(): Observable<Task[]> {
     return this.http.get<Task[]>(this.tasksUrl);

@@ -40,7 +40,9 @@ export class TasksComponent implements OnInit {
       });
     } else {
       this.taskService.getTasks().subscribe((tasks) => {
-        this.tasks = tasks.filter((t) => t.statusAssignment.statusId === event);
+        this.tasks = tasks
+          .filter((t) => t.statusAssignment.statusId === event)
+          .sort((t1, t2) => (t1.assignmentId < t2.assignmentId ? 1 : -1));
       });
     }
   }
@@ -58,6 +60,9 @@ export class TasksComponent implements OnInit {
     this.sortid = 0;
   }
 
+  /**
+   * funtion tha handles adding task
+   */
   openDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
@@ -91,7 +96,6 @@ export class TasksComponent implements OnInit {
           assignmentUserId: result?.assignmentUserId,
           assignmentPhotoAttach: '',
         };
-
         dialogRef.close();
         this.taskService.addTask(itask).subscribe(() => {
           this.taskService.getTasks().subscribe((tasks) => {
@@ -124,6 +128,7 @@ export class TasksComponent implements OnInit {
     this.taskService.deleteTask(task).subscribe();
   }
 
+  //edit task function
   editTask(task: Task) {
     this.isAddForm = false;
     const dialogConfig = new MatDialogConfig();
@@ -148,14 +153,12 @@ export class TasksComponent implements OnInit {
       let task: Task = {
         assignmentDescription: result?.assignmentDescription,
         assignmentTitle: result?.assignmentTitle,
-        assignmentStartDate: JSON.stringify(result?.assignmentStartDate)?.slice(
-          1,
-          11
-        ),
-        assignmentEndDate: JSON.stringify(result?.assignmentEndDate)?.slice(
-          1,
-          11
-        ),
+        assignmentStartDate: this.formatDate(
+          new Date(Date.parse(result?.assignmentStartDate))
+        ).slice(0, 10),
+        assignmentEndDate: this.formatDate(
+          new Date(Date.parse(result?.assignmentEndDate))
+        ).slice(0, 10),
         statusAssignment: new Status(result?.assignmentStatusId),
         priorityAssignment: new Priority(result?.assignmentPriorityId),
         userAssignment: new User(result?.assignmentUserId),
@@ -177,6 +180,10 @@ export class TasksComponent implements OnInit {
     });
   }
 
+  /**
+   *
+   * update task function
+   */
   updateTask(task: Task) {
     //Toggle in UI
     if (task.statusAssignment.statusId === 1) {

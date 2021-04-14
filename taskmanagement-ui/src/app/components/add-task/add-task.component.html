@@ -146,36 +146,35 @@
       </div>
     </div>
 
-  <!-- 
+    <!-- 
         Buttons
       -->
-  <div class="buttons" mat-dialog-actions>
-    <button class="mat-raised-button" (click)="close()" mat-dialog-close>
-      Close
-    </button>
-    <ng-template [ngIf]="data.assignmentId === undefined">
-      <button
-        (click)="onAdd(data)"
-        mat-dialog-close="data"
-        class="submit"
-        mat-raised-button
-        color="primary"
-      >
-        Submit
+    <div class="buttons" mat-dialog-actions>
+      <button class="mat-raised-button" (click)="close()" mat-dialog-close>
+        Close
       </button>
-    </ng-template>
-    <ng-template [ngIf]="data.assignmentId !== undefined">
-      <button
-        (click)="onEdit(data)"
-        [mat-dialog-close]="data"
-        class="submit"
-        mat-raised-button
-        color="primary"
-      >
-        Edit
-      </button>
-    </ng-template>
+      <ng-template [ngIf]="data.assignmentId === undefined">
+        <button
+          (click)="onAdd(data)"
+          [mat-dialog-close]="data"
+          class="submit"
+          mat-raised-button
+          color="primary"
+        >
+          Submit
+        </button>
+      </ng-template>
+      <ng-template [ngIf]="data.assignmentId !== undefined">
+        <button
+          (click)="onEdit(data)"
+          [mat-dialog-close]="data"
+          class="submit"
+          mat-raised-button
+          color="primary"
+        >
+          Edit
+        </button>
+      </ng-template>
+    </div>
   </div>
 </div>
-</div>
-

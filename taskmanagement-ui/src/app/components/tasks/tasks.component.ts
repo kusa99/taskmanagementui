@@ -51,7 +51,7 @@ export class TasksComponent implements OnInit {
         t1.assignmentId < t2.assignmentId ? 1 : -1
       );
     });
-   
+
     this.taskService.getStatus().subscribe((statusi) => {
       this.statusi = statusi;
     });
@@ -72,28 +72,26 @@ export class TasksComponent implements OnInit {
       assignmentPriorityId: 0,
       assignmentStatusId: 0,
     };
-    console.log(dialogConfig.data);
     const dialogRef = this.dialog.open(AddTaskComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe((result) => {
-      let itask: ITask = {
-        assignmentId: result?.assignmentId,
-        assignmentDescription: result?.assignmentDescription,
-        assignmentTitle: result?.assignmentTitle,
-        assignmentStartDate: this.formatDate(
-          new Date(Date.parse(result?.assignmentStartDate))
-        ).slice(0, 10),
-        assignmentEndDate: this.formatDate(
-          new Date(Date.parse(result?.assignmentEndDate))
-        ).slice(0, 10),
-        assignmentStatusId: result?.assignmentStatusId,
-        assignmentPriorityId: result?.assignmentPriorityId,
-        assignmentUserId: result?.assignmentUserId,
-        assignmentPhotoAttach: '',
-      };
-      console.log('itask');
-      console.log(itask);
       if (result) {
+        let itask: ITask = {
+          assignmentId: result?.assignmentId,
+          assignmentDescription: result?.assignmentDescription,
+          assignmentTitle: result?.assignmentTitle,
+          assignmentStartDate: this.formatDate(
+            new Date(Date.parse(result?.assignmentStartDate))
+          ).slice(0, 10),
+          assignmentEndDate: this.formatDate(
+            new Date(Date.parse(result?.assignmentEndDate))
+          ).slice(0, 10),
+          assignmentStatusId: result?.assignmentStatusId,
+          assignmentPriorityId: result?.assignmentPriorityId,
+          assignmentUserId: result?.assignmentUserId,
+          assignmentPhotoAttach: '',
+        };
+
         dialogRef.close();
         this.taskService.addTask(itask).subscribe(() => {
           this.taskService.getTasks().subscribe((tasks) => {
@@ -131,7 +129,6 @@ export class TasksComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     let statusId: number = task.statusAssignment.statusId;
     let priorityId: number = task.priorityAssignment.priorityId;
-    console.log('prio ' + priorityId);
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '60%';
@@ -145,7 +142,6 @@ export class TasksComponent implements OnInit {
       assignmentStatusId: statusId,
       assignmentId: task.assignmentId,
     };
-    console.log(dialogConfig.data);
     const dialogRef = this.dialog.open(AddTaskComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -164,7 +160,7 @@ export class TasksComponent implements OnInit {
         priorityAssignment: new Priority(result?.assignmentPriorityId),
         userAssignment: new User(result?.assignmentUserId),
         assignmentPhotoAttach: '',
-        assignmentId: result?.AssignmentId,
+        assignmentId: result?.assignmentId,
         assignmentIsDeleted: false,
       };
 

@@ -10,6 +10,7 @@ const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
   }),
+  Vary: 'Origin',
 };
 
 export interface ITaskPut {
@@ -30,6 +31,7 @@ export interface ITaskPut {
 export class TaskService {
   taskUpdateUrl: string =
     'https://localhost:44371/api/Assignments/UpdateAssignment';
+  proxyurl: string = 'https://cors-anywhere.herokuapp.com/';
 
   constructor(private http: HttpClient) {}
 
@@ -37,10 +39,10 @@ export class TaskService {
   taskUrlPost: string = 'https://localhost:44371/api/Assignments/NewAssignment';
   taskUrlStatus: string = 'https://localhost:44371/api/Statuses';
   taskDeleteUrl: string =
-    'https://localhost:44371/api/Assignments/DeleteAssignment/{id}';
+    'https://localhost:44371/api/Assignments/DeleteAssignment';
 
   getTasks(): Observable<Task[]> {
-    return this.http.get<Task[]>(`${this.tasksUrl}`);
+    return this.http.get<Task[]>(this.tasksUrl);
   }
 
   getTaskById(id: number): Observable<Task> {
@@ -62,22 +64,6 @@ export class TaskService {
     };
     return this.http.put(url, itask, httpOptions);
   }
-
-  // updateTask(task: ITask):Observable<any> {
-  //   const url = `${this.taskUpdateUrl}/${task.assignmentId}`;
-  //   const itask: ITaskPut = {
-  //     assignmentDescription: task.assignmentDescription,
-  //     assignmentEndDate: task.assignmentEndDate,
-  //     assignmentPhotoAttach: task.assignmentPhotoAttach,
-  //     assignmentPriorityId: task.priorityAssignment.priorityId,
-  //     assignmentStartDate: task.assignmentStartDate,
-  //     assignmentTitle: task.assignmentTitle,
-  //     assignmentStatusId: task.statusAssignment.statusId,
-  //     assignmentUserId: task.userAssignment.userId,
-  //     assignmentIsDeleted: false,
-  //   };
-  //   return this.http.put(url, itask, httpOptions);
-  // }
 
   addTask(task: ITask): Observable<any> {
     return this.http.post(this.taskUrlPost, task, httpOptions);

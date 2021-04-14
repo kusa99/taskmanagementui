@@ -1,7 +1,7 @@
 .priority {
   display: flex;
-  justify-content:center;
- 
+  justify-content: center;
+
   width: 100%;
 }
 .priority h3 {
@@ -25,13 +25,12 @@ mat-radio-group mat-radio-button {
   background-color: green;
 }
 
-.date-div{
-  display:flex;
+.date-div {
+  display: flex;
   justify-content: space-around;
   align-items: center;
-
 }
-.date{
+.date {
   width: 30%;
 }
 
@@ -57,6 +56,10 @@ mat-radio-group mat-radio-button {
 mat-form-field {
   width: 100%;
 }
-.mat-dialog-actions{
+.mat-dialog-actions {
   margin-bottom: 100px;
+}
+.buttons {
+  display: flex;
+  justify-content: space-around;
 }

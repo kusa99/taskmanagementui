@@ -5,8 +5,8 @@
   min-height: 100vh;
   width: 100vw;
 }
-.tasks {
-  width: 60%;
+.container {
+  width: 50%;
 }
 .bg-img {
   position: absolute;

@@ -4,7 +4,7 @@
       <!--
             STATUS
         -->
-     
+
       <ng-template [ngIf]="task.statusAssignment.statusId === 1">
         <div class="tooltip">
           <div class="check-item">
@@ -12,25 +12,31 @@
               <span class="material-icons" (click)="onToggle(task)">check</span>
             </div>
           </div>
-          <span class="tooltiptext">Click to start</span>
+          <span class="tooltiptext">Switch to In progress</span>
         </div>
       </ng-template>
       <ng-template [ngIf]="task.statusAssignment.statusId === 2">
-        <div class="chect-item">
-          <div class="check-item completed">
-            <div class="x">
-              <span (click)="onToggle(task)" class="material-icons">
-                rotate_right
-              </span>
+        <div class="tooltip">
+          <div class="chect-item">
+            <div class="check-item completed">
+              <div class="x">
+                <span (click)="onToggle(task)" class="material-icons">
+                  rotate_right
+                </span>
+              </div>
             </div>
           </div>
+          <span class="tooltiptext">Switch to Done</span>
         </div>
       </ng-template>
       <ng-template [ngIf]="task.statusAssignment.statusId === 3">
-        <div class="check-item completed">
-          <div class="x">
-            <span class="material-icons" (click)="onToggle(task)">check</span>
+        <div class="tooltip">
+          <div class="check-item completed">
+            <div class="x">
+              <span class="material-icons" (click)="onToggle(task)">check</span>
+            </div>
           </div>
+          <span class="tooltiptext">Switch to To do</span>
         </div>
       </ng-template>
     </mat-card-header>
@@ -90,13 +96,19 @@
         CONTROL BOXES
     -->
     <div class="controls-box">
-      <button class="edit" (click)="onEdit(task)">
-        <i class="material-icons">edit</i>
-      </button>
+      <div class="tooltip">
+        <button class="edit" (click)="onEdit(task)">
+          <i class="material-icons">edit</i>
+        </button>
 
-      <button class="delete" (click)="onDelete(task)">
-        <i class="material-icons">delete</i>
-      </button>
+        <span class="tooltiptext">Edit</span>
+      </div>
+      <div class="tooltip">
+        <button class="delete" (click)="onDelete(task)">
+          <i class="material-icons">delete</i>
+        </button>
+        <span class="tooltiptext">Delete</span>
+      </div>
     </div>
   </mat-card-content>
 </mat-card>

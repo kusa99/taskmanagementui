@@ -63,22 +63,6 @@ export class TaskService {
     return this.http.put(url, itask, httpOptions);
   }
 
-  // updateTask(task: ITask):Observable<any> {
-  //   const url = `${this.taskUpdateUrl}/${task.assignmentId}`;
-  //   const itask: ITaskPut = {
-  //     assignmentDescription: task.assignmentDescription,
-  //     assignmentEndDate: task.assignmentEndDate,
-  //     assignmentPhotoAttach: task.assignmentPhotoAttach,
-  //     assignmentPriorityId: task.priorityAssignment.priorityId,
-  //     assignmentStartDate: task.assignmentStartDate,
-  //     assignmentTitle: task.assignmentTitle,
-  //     assignmentStatusId: task.statusAssignment.statusId,
-  //     assignmentUserId: task.userAssignment.userId,
-  //     assignmentIsDeleted: false,
-  //   };
-  //   return this.http.put(url, itask, httpOptions);
-  // }
-
   addTask(task: ITask): Observable<any> {
     return this.http.post(this.taskUrlPost, task, httpOptions);
   }

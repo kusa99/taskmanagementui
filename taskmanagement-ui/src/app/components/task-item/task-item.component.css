@@ -13,7 +13,9 @@
   transition: 0.9s ease;
 
   animation: bounce 0.5s ease;
-  background-color: rgba(209, 209, 209, 0.356);
+  background-color: rgba(175, 227, 236, 0.521);
+  /* background-color: rgba(209, 209, 209, 0.589); */
+
 }
 @keyframes bounce {
   0% {
@@ -85,20 +87,28 @@
   font-weight: lighter;
   font-style: italic;
   font-size: 0.75rem;
+  color: black;
 }
 .assigned-user {
   width: 6rem;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: rgb(219, 217, 217);
-  border-radius: 10px;
+  background-color: rgba(37, 145, 187, 0.63);
+  border-radius: 7px;
   height: 2rem;
   font-weight: 500;
+  color: white;
+}
+.assigned-user .i{
+  height: 40px;
+  width: 40px;
+  color: white;
 }
 .assigned-user img {
   height: 25px;
   width: 25px;
+  color: white;
 }
 .start-date::before {
   content: "Start date";
@@ -133,14 +143,14 @@
   cursor: pointer;
   display: flex;
   color: rgb(133, 129, 129);
-  background: #eee;
+  background: rgb(245, 245, 245);
   padding: 1px;
   border-radius: 5px;
   border: none;
-}
+  }
 .delete {
   cursor: pointer;
-  background: #eee;
+  background: rgb(245, 245, 245);
   color: rgb(133, 129, 129);
   padding: 1px;
   border-radius: 5px;

@@ -14,7 +14,7 @@
       required
       [(ngModel)]="data.assignmentTitle"
       placeholder="Write a task name"
-      maxlength="35"
+      maxlength="50"
     />
   </mat-form-field>
   <div
@@ -26,7 +26,7 @@
   >
     <div *ngIf="assignmentTitle.errors.required">Name is required.</div>
     <div *ngIf="assignmentTitle.errors.maxlength">
-      Name must be max 35 characters long.
+      Name must be max 50 characters long.
     </div>
   </div>
 

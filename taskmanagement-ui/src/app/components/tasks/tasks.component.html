@@ -50,9 +50,26 @@
     >
     </app-task-item>
   </ng-template>
+
   <ng-template [ngIf]="tasks?.length == 0" #noTasks>
     <div class="noTasks">
       <h1>No tasks to show!</h1>
     </div>
   </ng-template>
+  <ng-template [ngIf]="tasksLength > tasks?.length">
+    <button
+      (click)="loadMore()"
+      class="submit"
+      mat-raised-button
+      color="primary"
+      style="
+        margin-top: 2rem;
+        width: 6rem;
+        justify-self: center;
+        align-self: center;
+      "
+    >
+      Load more
+    </button></ng-template
+  >
 </div>

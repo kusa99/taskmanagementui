@@ -21,6 +21,8 @@
   border: 4px solid white;
   max-height: 65vh;
   overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
 }
 
 .search-div {

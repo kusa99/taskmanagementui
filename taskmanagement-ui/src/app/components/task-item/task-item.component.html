@@ -43,7 +43,9 @@
     <!--
         TITLE
     -->
-    <mat-card-title class="title">{{ task.assignmentTitle }}</mat-card-title>
+    <mat-card-title class="title">{{
+      task.assignmentTitle.slice(0, 12)
+    }}</mat-card-title>
   </div>
   <mat-card-content class="card-body">
     <!--

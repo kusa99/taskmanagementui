@@ -150,24 +150,24 @@ export class TasksComponent implements OnInit {
     const dialogRef = this.dialog.open(AddTaskComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe((result) => {
-      let task: Task = {
-        assignmentDescription: result?.assignmentDescription,
-        assignmentTitle: result?.assignmentTitle,
-        assignmentStartDate: this.formatDate(
-          new Date(Date.parse(result?.assignmentStartDate))
-        ).slice(0, 10),
-        assignmentEndDate: this.formatDate(
-          new Date(Date.parse(result?.assignmentEndDate))
-        ).slice(0, 10),
-        statusAssignment: new Status(result?.assignmentStatusId),
-        priorityAssignment: new Priority(result?.assignmentPriorityId),
-        userAssignment: new User(result?.assignmentUserId),
-        assignmentPhotoAttach: '',
-        assignmentId: result?.assignmentId,
-        assignmentIsDeleted: false,
-      };
-
       if (result) {
+        let task: Task = {
+          assignmentDescription: result?.assignmentDescription,
+          assignmentTitle: result?.assignmentTitle,
+          assignmentStartDate: this.formatDate(
+            new Date(Date.parse(result?.assignmentStartDate))
+          ).slice(0, 10),
+          assignmentEndDate: this.formatDate(
+            new Date(Date.parse(result?.assignmentEndDate))
+          ).slice(0, 10),
+          statusAssignment: new Status(result?.assignmentStatusId),
+          priorityAssignment: new Priority(result?.assignmentPriorityId),
+          userAssignment: new User(result?.assignmentUserId),
+          assignmentPhotoAttach: '',
+          assignmentId: result?.assignmentId,
+          assignmentIsDeleted: false,
+        };
+
         dialogRef.close();
         this.taskService.updateTask(task).subscribe(() => {
           this.taskService.getTasks().subscribe((tasks) => {

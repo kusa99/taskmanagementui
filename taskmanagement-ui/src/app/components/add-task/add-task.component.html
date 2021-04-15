@@ -7,12 +7,28 @@
   <mat-form-field appearance="fill">
     <mat-label>Task name</mat-label>
     <input
+      id="assignmentTitle"
+      name="assignmentTitle"
+      #assignmentTitle="ngModel"
       matInput
       required
       [(ngModel)]="data.assignmentTitle"
       placeholder="Write a task name"
+      maxlength="35"
     />
   </mat-form-field>
+  <div
+    *ngIf="
+      assignmentTitle.invalid &&
+      (assignmentTitle.dirty || assignmentTitle.touched)
+    "
+    class="alert alert-danger"
+  >
+    <div *ngIf="assignmentTitle.errors.required">Name is required.</div>
+    <div *ngIf="assignmentTitle.errors.maxlength">
+      Name must be max 35 characters long.
+    </div>
+  </div>
 
   <!-- 
         Assign to dropdown 
@@ -21,12 +37,27 @@
   <div class="inputs">
     <mat-form-field appearance="fill">
       <mat-label>Assign to</mat-label>
-      <mat-select required [(ngModel)]="data.assignmentUserId">
+      <mat-select
+        required
+        [(ngModel)]="data.assignmentUserId"
+        id="assignmentUserId"
+        name="assignmentUserId"
+        #assignmentUserId="ngModel"
+      >
         <mat-option *ngFor="let user of users" [value]="user.userId">
           {{ user.userFirstName }} {{ user.userLastName }}
         </mat-option>
       </mat-select>
     </mat-form-field>
+    <div
+      *ngIf="
+        assignmentUserId.invalid &&
+        (assignmentUserId.dirty || assignmentUserId.touched)
+      "
+      class="alert alert-danger"
+    >
+      <div *ngIf="assignmentUserId.errors.required">Assign to is required.</div>
+    </div>
 
     <!-- 
             Dates 
@@ -45,7 +76,9 @@
             [(ngModel)]="data.assignmentStartDate"
             [matDatepicker]="picker1"
             min="{{ todaysDate }}"
-            [formControl]="startDate"
+            id="assignmentStartDate"
+            name="assignmentStartDate"
+            #assignmentStartDate="ngModel"
           />
           <mat-datepicker-toggle
             matSuffix
@@ -64,8 +97,10 @@
             matInput
             [(ngModel)]="data.assignmentEndDate"
             [matDatepicker]="picker2"
-            [formControl]="endDate"
             [min]="startDate.value"
+            id="assignmentEndDate"
+            name="assignmentEndDate"
+            #assignmentEndDate="ngModel"
           />
           <mat-datepicker-toggle
             matSuffix
@@ -73,6 +108,32 @@
           ></mat-datepicker-toggle>
           <mat-datepicker #picker2></mat-datepicker>
         </mat-form-field>
+      </div>
+      <div>
+        <div
+          *ngIf="
+            assignmentStartDate.invalid &&
+            (assignmentStartDate.dirty || assignmentStartDate.touched)
+          "
+          class="alert alert-danger"
+        >
+          <div *ngIf="assignmentStartDate.errors.required">
+            Start date is required.
+          </div>
+        </div>
+      </div>
+      <div>
+        <div
+          *ngIf="
+            assignmentEndDate.invalid &&
+            (assignmentEndDate.dirty || assignmentEndDate.touched)
+          "
+          class="alert alert-danger"
+        >
+          <div *ngIf="assignmentEndDate.errors.required">
+            End date is required.
+          </div>
+        </div>
       </div>
       <!-- 
         Priority radio buttons
@@ -141,39 +202,98 @@
             required
             matInput
             [(ngModel)]="data.assignmentDescription"
+            id="assignmentDescription"
+            name="assignmentDescription"
+            #assignmentDescription="ngModel"
+            rows="5"
           ></textarea>
         </mat-form-field>
+        <div
+          *ngIf="
+            assignmentDescription.invalid &&
+            (assignmentDescription.dirty || assignmentDescription.touched)
+          "
+          class="alert alert-danger"
+        >
+          <div *ngIf="assignmentDescription.errors.required">
+            Description is required.
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- 
         Buttons
       -->
+
     <div class="buttons" mat-dialog-actions>
       <button class="mat-raised-button" (click)="close()" mat-dialog-close>
         Close
       </button>
-      <ng-template [ngIf]="data.assignmentId === undefined">
-        <button
-          (click)="onAdd(data)"
-          [mat-dialog-close]="data"
-          class="submit"
-          mat-raised-button
-          color="primary"
-        >
-          Submit
-        </button>
+      <ng-template
+        *ngIf="
+          data.assignmentTitle &&
+            data.assignmentDescription &&
+            data.assignmentStartDate &&
+            data.assignmentEndDate &&
+            data.assignmentStatusId &&
+            data.assignmentPriorityId &&
+            data.assignmentUserId &&
+            data.assignmentEndDate > data.assignmentStartDate;
+          then thenBlock;
+          else elseBlock
+        "
+      >
       </ng-template>
-      <ng-template [ngIf]="data.assignmentId !== undefined">
-        <button
-          (click)="onEdit(data)"
-          [mat-dialog-close]="data"
-          class="submit"
-          mat-raised-button
-          color="primary"
-        >
-          Edit
-        </button>
+      <ng-template #thenBlock>
+        <ng-template [ngIf]="data.assignmentId === undefined">
+          <button
+            (click)="onAdd(data)"
+            [mat-dialog-close]="data"
+            class="submit"
+            mat-raised-button
+            color="primary"
+          >
+            Submit
+          </button>
+        </ng-template>
+        <ng-template [ngIf]="data.assignmentId !== undefined">
+          <button
+            (click)="onEdit(data)"
+            [mat-dialog-close]="data"
+            class="submit"
+            mat-raised-button
+            color="primary"
+          >
+            Edit
+          </button>
+        </ng-template>
+      </ng-template>
+      <ng-template #elseBlock>
+        <ng-template [ngIf]="data.assignmentId === undefined">
+          <button
+            (click)="onAdd(data)"
+            [mat-dialog-close]="data"
+            class="submit"
+            mat-raised-button
+            color="primary"
+            disabled
+          >
+            Submit
+          </button>
+        </ng-template>
+        <ng-template [ngIf]="data.assignmentId !== undefined">
+          <button
+            (click)="onEdit(data)"
+            [mat-dialog-close]="data"
+            class="submit"
+            mat-raised-button
+            color="primary"
+            disabled
+          >
+            Edit
+          </button>
+        </ng-template>
       </ng-template>
     </div>
   </div>

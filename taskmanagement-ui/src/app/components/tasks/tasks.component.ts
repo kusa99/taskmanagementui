@@ -14,11 +14,12 @@ import { Priority } from 'src/app/models/Priority';
 })
 export class TasksComponent implements OnInit {
   tasks: Task[];
-  limit: number = 15;
+  limit: number = 5;
   searchKey: string;
   statusi: Status[];
   sortid: number;
   isAddForm: boolean = true;
+  tasksLength: number;
 
   name: string;
   description: string;
@@ -49,15 +50,16 @@ export class TasksComponent implements OnInit {
 
   ngOnInit(): void {
     this.taskService.getTasks().subscribe((tasks) => {
-      this.tasks = tasks.sort((t1, t2) =>
-        t1.assignmentId < t2.assignmentId ? 1 : -1
-      );
+      this.tasks = tasks
+        .sort((t1, t2) => (t1.assignmentId < t2.assignmentId ? 1 : -1))
+        .slice(0, this.limit);
     });
 
     this.taskService.getStatus().subscribe((statusi) => {
       this.statusi = statusi;
     });
     this.sortid = 0;
+    this.getTasksLength();
   }
 
   /**
@@ -150,24 +152,24 @@ export class TasksComponent implements OnInit {
     const dialogRef = this.dialog.open(AddTaskComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe((result) => {
-      let task: Task = {
-        assignmentDescription: result?.assignmentDescription,
-        assignmentTitle: result?.assignmentTitle,
-        assignmentStartDate: this.formatDate(
-          new Date(Date.parse(result?.assignmentStartDate))
-        ).slice(0, 10),
-        assignmentEndDate: this.formatDate(
-          new Date(Date.parse(result?.assignmentEndDate))
-        ).slice(0, 10),
-        statusAssignment: new Status(result?.assignmentStatusId),
-        priorityAssignment: new Priority(result?.assignmentPriorityId),
-        userAssignment: new User(result?.assignmentUserId),
-        assignmentPhotoAttach: '',
-        assignmentId: result?.assignmentId,
-        assignmentIsDeleted: false,
-      };
-
       if (result) {
+        let task: Task = {
+          assignmentDescription: result?.assignmentDescription,
+          assignmentTitle: result?.assignmentTitle,
+          assignmentStartDate: this.formatDate(
+            new Date(Date.parse(result?.assignmentStartDate))
+          ).slice(0, 10),
+          assignmentEndDate: this.formatDate(
+            new Date(Date.parse(result?.assignmentEndDate))
+          ).slice(0, 10),
+          statusAssignment: new Status(result?.assignmentStatusId),
+          priorityAssignment: new Priority(result?.assignmentPriorityId),
+          userAssignment: new User(result?.assignmentUserId),
+          assignmentPhotoAttach: '',
+          assignmentId: result?.assignmentId,
+          assignmentIsDeleted: false,
+        };
+
         dialogRef.close();
         this.taskService.updateTask(task).subscribe(() => {
           this.taskService.getTasks().subscribe((tasks) => {
@@ -202,11 +204,29 @@ export class TasksComponent implements OnInit {
     }
   }
 
+  /**
+   * clear the search input function
+   */
   onSearchClear() {
     this.searchKey = '';
     this.applyFilter();
   }
 
+  /**
+   * function that returns lenth of tasks in database
+   */
+
+  getTasksLength(): void {
+    var tasks: Task[];
+    this.taskService.getTasks().subscribe((t) => {
+      tasks = t;
+      this.tasksLength = tasks.length;
+    });
+  }
+
+  /**
+   * function that "searches" tasks
+   */
   applyFilter() {
     this.taskService
       .getTasks()
@@ -220,5 +240,17 @@ export class TasksComponent implements OnInit {
             ).includes(this.searchKey.trim().toLowerCase())
           ))
       );
+  }
+
+  /**
+   * funtion load more, loads more tasks, limit is  uvecan for 5
+   */
+  loadMore() {
+    this.limit += 5;
+    this.taskService.getTasks().subscribe((tasks) => {
+      this.tasks = tasks
+        .sort((t1, t2) => (t1.assignmentId < t2.assignmentId ? 1 : -1))
+        .slice(0, this.limit);
+    });
   }
 }

@@ -1,9 +1,9 @@
 .priority {
   display: flex;
-  justify-content:center;
+  justify-content: center;
   width: 100%;
 }
-.bg-img{
+.bg-img {
   position: absolute;
   height: 170%;
   width: 96.8%;
@@ -52,8 +52,7 @@ mat-radio-group mat-radio-button {
   align-items: center;
 }
 .submit {
-  
-  background: rgb(73, 160, 194);;
+  background: rgb(73, 160, 194);
 }
 
 .description {
@@ -62,9 +61,21 @@ mat-radio-group mat-radio-button {
 mat-form-field {
   width: 100%;
 }
-.mat-dialog-actions{
+.mat-dialog-actions {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
 }
 
+.alert-danger {
+  color: #dc3545;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+.alert {
+  position: relative;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+}

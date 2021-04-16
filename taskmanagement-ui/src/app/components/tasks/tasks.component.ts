@@ -220,7 +220,6 @@ export class TasksComponent implements OnInit {
     var tasks: Task[];
     this.taskService.getTasks().subscribe((t) => {
       tasks = t;
-      console.log(tasks);
       this.tasksLength = tasks.length;
     });
   }

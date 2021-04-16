@@ -79,6 +79,7 @@
             id="assignmentStartDate"
             name="assignmentStartDate"
             #assignmentStartDate="ngModel"
+            
           />
           <mat-datepicker-toggle
             matSuffix
@@ -97,10 +98,12 @@
             matInput
             [(ngModel)]="data.assignmentEndDate"
             [matDatepicker]="picker2"
-            [min]="startDate.value"
+             [min]="assignmentStartDate.value"
             id="assignmentEndDate"
             name="assignmentEndDate"
             #assignmentEndDate="ngModel"
+
+            
           />
           <mat-datepicker-toggle
             matSuffix

@@ -5,6 +5,9 @@
   background: rgb(73, 160, 194);
   border: 2px solid white;
 }
+.btn-add:hover{
+  background-color: rgb(35, 123, 158);;
+}
 .noTasks h1 {
   display: flex;
   justify-content: center;
@@ -58,4 +61,12 @@
 }
 .status div.mat-form-field-underline {
   display: none;
+}
+.submit{
+  background-color: rgb(236, 236, 236);
+  color: rgb(29, 121, 158);;
+}
+.submit:hover{
+  background-color: rgb(255, 255, 255);
+
 }
